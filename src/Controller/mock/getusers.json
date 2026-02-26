@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "João Silva",
+  "email": "joao@email.com",
+  "role": "admin",
+  "active": true,
+  "createdAt": "2026-02-20",
+  "updatedAt": "2026-02-26"
+}
