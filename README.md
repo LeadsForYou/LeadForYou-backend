@@ -1,4 +1,4 @@
-# LeadX
+# LeadForYou
 
 Este é um repositório padrão para desenvolvimento de aplicações usando Docker, PHP, Symfony e MySQL
 

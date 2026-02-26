@@ -1,6 +1,6 @@
 services:
   php:
-    container_name: leadx-php-fpm
+    container_name: leadforyou-php-fpm
     build:
       context: ./
       dockerfile: ./docker/php/Dockerfile
@@ -10,10 +10,10 @@ services:
       - ./:/var/www
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - leadx_network
+      - leadforyou_network
 
   nginx:
-    container_name: leadx-nginx-server
+    container_name: leadforyou-nginx-server
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
@@ -26,26 +26,26 @@ services:
       - ./:/var/www
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - leadx_network
+      - leadforyou_network
 
   database:
-    container_name: leadx-database
+    container_name: leadforyou-database
     image: postgres:16
     restart: always
     tty: true
     volumes:
       - database-data:/var/lib/postgresql/data
     networks:
-      - leadx_network
+      - leadforyou_network
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-leadx}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-leadx}
-      POSTGRES_USER: ${POSTGRES_USER:-leadx}
+      POSTGRES_DB: ${POSTGRES_DB:-leadforyou}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-leadforyou}
+      POSTGRES_USER: ${POSTGRES_USER:-leadforyou}
 
 networks:
-  leadx_network:
+  leadforyou_network:
     driver: bridge
 
 volumes:
