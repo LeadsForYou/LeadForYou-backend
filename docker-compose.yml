@@ -1,0 +1,53 @@
+services:
+  php:
+    container_name: leadx-php-fpm
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - leadx_network
+
+  nginx:
+    container_name: leadx-nginx-server
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '8080:80'
+      - '443:443'
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - leadx_network
+
+  database:
+    container_name: leadx-database
+    image: postgres:16
+    restart: always
+    tty: true
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    networks:
+      - leadx_network
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-leadx}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-leadx}
+      POSTGRES_USER: ${POSTGRES_USER:-leadx}
+
+networks:
+  leadx_network:
+    driver: bridge
+
+volumes:
+  database-data:
+    driver: local
