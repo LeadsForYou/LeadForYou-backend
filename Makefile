@@ -9,8 +9,8 @@ down:
 container_php:
 	docker compose exec -it php bash
 
-container_mysql:
-	docker compose exec -it mysql bash
+container_database:
+	docker compose exec -it database bash
 
 composer_install:
 	docker compose exec -T php bash -c "composer install"
