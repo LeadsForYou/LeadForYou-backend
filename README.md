@@ -8,6 +8,22 @@ Este é um repositório padrão para desenvolvimento de aplicações usando Dock
 - **Postgres** 16
 - **Symfony** 7.2
 
+## ⚠️ Aviso Importante - Permissões de Arquivos
+
+Após clonar o repositório, você pode enfrentar problemas de permissão para editar arquivos. **Execute estes comandos imediatamente após o clone:**
+
+```bash
+# Corrigir propriedade dos arquivos
+sudo chown -R $USER:$USER .
+
+# Dar permissões adequadas
+chmod -R 755 var/ public/ docker/
+```
+
+Se não fizer isso, pode ter erros ao editar arquivos ou rodar os containers.
+
+---
+
 ## Instalação
 <details>
 <summary>Passo a passo</summary>
@@ -74,6 +90,36 @@ Depois que tudo estiver configurado e as dependências instaladas, você pode ac
 
 </details>
 
+## ⚠️ Problemas de Permissões
+
+Se você encontrar erros relacionados a permissões de arquivos após clonar o repositório, execute os seguintes comandos:
+
+### No Linux/Mac
+```bash
+# Corrigir permissões dos arquivos
+sudo chown -R $USER:$USER .
+
+# Dar permissão de escrita nos diretórios necessários
+chmod -R 755 var/
+chmod -R 755 public/
+```
+
+### Dentro do contêiner Docker
+Se os problemas persistirem após estar dentro do contêiner PHP:
+
+```bash
+# Entrar no contêiner
+docker compose exec -it php bash
+
+# Corrigir permissões
+chmod -R 777 var/cache
+chmod -R 777 var/log
+```
+
+### Usando `make setup`
+O comando `make setup` já cuida automaticamente dessas permissões, então essa seção é necessária apenas se fizer a instalação manual.
+
+---
 
 ## Desenvolvimento
 <details>
