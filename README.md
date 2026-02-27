@@ -5,7 +5,7 @@ Este é um repositório padrão para desenvolvimento de aplicações usando Dock
 ## Tecnologias
 
 - **PHP** 8.4
-- **MySQL** 8
+- **Postgres** 16
 - **Symfony** 7.2
 
 ## Instalação
@@ -28,7 +28,7 @@ git clone https://github.com/alessandrofeitoza/leadx-backend.git
 Mude para o diretório do projeto:
 
 ```bash
-cd leadx-backend
+cd LeadForYou-backend
 ```
 
 ---
