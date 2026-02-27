@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "user": { "id": 1, "name": "Vinicio Lima" },
+  "stage": { "id": 2, "name": "Prospecção" },
+  "name": "João Silva",
+  "company": "Tech Ltda",
+  "email": "joao@tech.com",
+  "phone": "85999999999",
+  "value": "1500.00",
+  "createdAt": "Y-m-d",
+  "updatedAt": "Y-m-d"
+}
