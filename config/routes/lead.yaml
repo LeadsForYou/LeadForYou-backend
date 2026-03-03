@@ -11,4 +11,4 @@ lead_create:
 lead_update:
   path: /lead/{id}
   controller: App\Controller\LeadController::update
-  methods: [PUT]
+  methods: [PATCH]

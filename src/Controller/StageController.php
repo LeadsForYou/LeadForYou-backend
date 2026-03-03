@@ -2,32 +2,31 @@
 
 namespace App\Controller;
 
+use App\Service\StageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 final class StageController extends AbstractController
 {
+    public function __construct(private readonly StageService $stageService) {}
+
     public function list(): JsonResponse
     {
-        $dados = file_get_contents(__DIR__ . '/mock/getStaged.json');
-        // pegaria do banco
-
-        return $this->json(json_decode($dados));
+        return $this->json($this->stageService->findAll());
     }
 
-    public function create(): JsonResponse
+    public function create(Request $request): JsonResponse
     {
-        $dados = file_get_contents(__DIR__ . '/mock/postStage.json');
-        // salvaria no banco
+        $data = $request->toArray();
 
-        return $this->json(json_decode($dados), JsonResponse::HTTP_CREATED);
+        return $this->json($this->stageService->create($data), JsonResponse::HTTP_CREATED);
     }
 
-    public function update(): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
-        $dados = file_get_contents(__DIR__ . '/mock/putStage.json');
-        // atualizaria no banco
+        $data = $request->toArray();
 
-        return $this->json(json_decode($dados));
+        return $this->json($this->stageService->update($id, $data));
     }
 }

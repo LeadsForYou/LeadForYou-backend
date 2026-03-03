@@ -2,32 +2,31 @@
 
 namespace App\Controller;
 
+use App\Service\LeadService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 final class LeadController extends AbstractController
 {
+    public function __construct(private readonly LeadService $leadService) {}
+
     public function list(): JsonResponse
     {
-        $dados = file_get_contents(__DIR__ . '/mock/getLead.json');
-        // pegaria do banco
-
-        return $this->json(json_decode($dados));
+        return $this->json($this->leadService->findAll());
     }
 
-    public function create(): JsonResponse
+    public function create(Request $request): JsonResponse
     {
-        $dados = file_get_contents(__DIR__ . '/mock/postLead.json');
-        // salvaria no banco
+        $data = $request->toArray();
 
-        return $this->json(json_decode($dados), JsonResponse::HTTP_CREATED);
+        return $this->json($this->leadService->create($data), JsonResponse::HTTP_CREATED);
     }
 
-    public function update(): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
-        $dados = file_get_contents(__DIR__ . '/mock/putLead.json');
-        // atualizaria no banco
+        $data = $request->toArray();
 
-        return $this->json(json_decode($dados));
+        return $this->json($this->leadService->update($id, $data));
     }
 }

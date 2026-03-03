@@ -11,4 +11,4 @@ stage_create:
 stage_update:
   path: /stage/{id}
   controller: App\Controller\StageController::update
-  methods: [PUT]
+  methods: [PATCH]

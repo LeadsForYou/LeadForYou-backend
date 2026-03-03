@@ -11,4 +11,4 @@ user_create:
 user_update:
   path: /user/{id}
   controller: App\Controller\UserController::update
-  methods: [PUT]
+  methods: [PATCH]
