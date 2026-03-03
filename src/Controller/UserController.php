@@ -5,10 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 final class UserController extends AbstractController
 {
-
     public function list(): JsonResponse
     {
         $dados = file_get_contents(__DIR__ . '/mock/getusers.json');
