@@ -1,0 +1,14 @@
+stage_list:
+  path: /stage
+  controller: App\Controller\StageController::list
+  methods: [GET]
+
+stage_create:
+  path: /stage
+  controller: App\Controller\StageController::create
+  methods: [POST]
+
+stage_update:
+  path: /stage/{id}
+  controller: App\Controller\StageController::update
+  methods: [PUT]
