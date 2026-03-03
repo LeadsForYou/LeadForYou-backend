@@ -1,7 +1,10 @@
-.PHONY: up install_dependencies generate_proxies migrate_database load_fixtures install_frontend compile_frontend generate_keys
+.PHONY: up build install_dependencies generate_proxies migrate_database load_fixtures install_frontend compile_frontend generate_keys install_phpunit tests_coverage
 
 up:
 	docker compose up -d
+
+build:
+	docker compose down && docker compose build && docker compose up -d
 
 down:
 	docker compose down
@@ -23,6 +26,9 @@ db_fixtures:
 
 tests: load_fixtures
 	docker compose exec -T php bash -c "php bin/phpunit"
+
+tests_coverage:
+	docker compose exec -T php bash -c "XDEBUG_MODE=coverage php bin/phpunit --coverage-html var/coverage/html --coverage-text"
 
 cache_clear:
 	docker compose exec -T php bash -c "php bin/console cache:clear"
