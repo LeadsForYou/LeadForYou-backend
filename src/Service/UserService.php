@@ -2,30 +2,69 @@
 
 namespace App\Service;
 
+use App\Exception\ValidationException;
+
 class UserService
 {
-    private string $mockDir;
-
-    public function __construct()
-    {
-        $this->mockDir = __DIR__ . '/../Controller/mock';
-    }
-
-    public function findAll(): mixed
+    public function findAll(): array
     {
         // buscaria do banco
-        return json_decode(file_get_contents("{$this->mockDir}/getusers.json"));
+        return [];
     }
 
-    public function create(array $data): mixed
+    public function create(array $data): array
     {
+        $errors = [];
+
+        if (empty($data['name']) || !is_string($data['name'])) {
+            $errors['name'] = 'O nome é obrigatório.';
+        }
+
+        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'Um e-mail válido é obrigatório.';
+        }
+
+        if (empty($data['password']) || strlen($data['password']) < 8) {
+            $errors['password'] = 'A senha deve ter no mínimo 8 caracteres.';
+        }
+
+        if (empty($data['role'])) {
+            $errors['role'] = 'O perfil é obrigatório.';
+        }
+
+        if (!empty($errors)) {
+            throw new ValidationException($errors);
+        }
+
         // salvaria no banco
-        return json_decode(file_get_contents("{$this->mockDir}/postuser.json"));
+        return $data;
     }
 
-    public function update(int $id, array $data): mixed
+    public function update(int $_id, array $data): array
     {
+        $errors = [];
+
+        if (array_key_exists('name', $data) && empty($data['name'])) {
+            $errors['name'] = 'O nome não pode ser vazio.';
+        }
+
+        if (array_key_exists('email', $data) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'E-mail inválido.';
+        }
+
+        if (array_key_exists('password', $data) && strlen($data['password']) < 8) {
+            $errors['password'] = 'A senha deve ter no mínimo 8 caracteres.';
+        }
+
+        if (array_key_exists('role', $data) && empty($data['role'])) {
+            $errors['role'] = 'O perfil não pode ser vazio.';
+        }
+
+        if (!empty($errors)) {
+            throw new ValidationException($errors);
+        }
+
         // atualizaria no banco
-        return json_decode(file_get_contents("{$this->mockDir}/putUser.json"));
+        return $data;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Exception\ValidationException;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,20 +14,34 @@ final class UserController extends AbstractController
 
     public function list(): JsonResponse
     {
-        return $this->json($this->userService->findAll());
+        $data = $this->userService->findAll();
+
+        if (empty($data)) {
+            return $this->json(['message' => 'Nenhum usuário encontrado.'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($data);
     }
 
     public function create(Request $request): JsonResponse
     {
-        $data = $request->toArray();
+        $data = $request->getContent() !== '' ? $request->toArray() : [];
 
-        return $this->json($this->userService->create($data), JsonResponse::HTTP_CREATED);
+        try {
+            return $this->json($this->userService->create($data), JsonResponse::HTTP_CREATED);
+        } catch (ValidationException $e) {
+            return $this->json(['errors' => $e->getErrors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     public function update(int $id, Request $request): JsonResponse
     {
-        $data = $request->toArray();
+        $data = $request->getContent() !== '' ? $request->toArray() : [];
 
-        return $this->json($this->userService->update($id, $data));
+        try {
+            return $this->json($this->userService->update($id, $data));
+        } catch (ValidationException $e) {
+            return $this->json(['errors' => $e->getErrors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }

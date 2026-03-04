@@ -2,30 +2,45 @@
 
 namespace App\Service;
 
+use App\Exception\ValidationException;
+
 class StageService
 {
-    private string $mockDir;
-
-    public function __construct()
-    {
-        $this->mockDir = __DIR__ . '/../Controller/mock';
-    }
-
-    public function findAll(): mixed
+    public function findAll(): array
     {
         // buscaria do banco
-        return json_decode(file_get_contents("{$this->mockDir}/getStaged.json"));
+        return [];
     }
 
-    public function create(array $data): mixed
+    public function create(array $data): array
     {
+        $errors = [];
+
+        if (empty($data['name']) || !is_string($data['name'])) {
+            $errors['name'] = 'O nome é obrigatório.';
+        }
+
+        if (!empty($errors)) {
+            throw new ValidationException($errors);
+        }
+
         // salvaria no banco
-        return json_decode(file_get_contents("{$this->mockDir}/postStage.json"));
+        return $data;
     }
 
-    public function update(int $id, array $data): mixed
+    public function update(int $_id, array $data): array
     {
+        $errors = [];
+
+        if (array_key_exists('name', $data) && empty($data['name'])) {
+            $errors['name'] = 'O nome não pode ser vazio.';
+        }
+
+        if (!empty($errors)) {
+            throw new ValidationException($errors);
+        }
+
         // atualizaria no banco
-        return json_decode(file_get_contents("{$this->mockDir}/putStage.json"));
+        return $data;
     }
 }
