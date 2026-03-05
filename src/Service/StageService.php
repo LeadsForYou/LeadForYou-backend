@@ -2,45 +2,61 @@
 
 namespace App\Service;
 
-use App\Exception\ValidationException;
+use App\Entity\Stage;
+use App\Exception\EntityNotFoundException;
+use App\Repository\StageRepository;
+use App\Validator\Validator;
 
 class StageService
 {
+    public function __construct(private readonly StageRepository $repo) {}
+
     public function findAll(): array
     {
-        // buscaria do banco
-        return [];
+        return array_map(fn(Stage $s) => $this->toArray($s), $this->repo->findAll());
     }
 
     public function create(array $data): array
     {
-        $errors = [];
+        (new Validator($data))
+            ->required('name', 'O nome é obrigatório.')
+            ->throw();
 
-        if (empty($data['name']) || !is_string($data['name'])) {
-            $errors['name'] = 'O nome é obrigatório.';
-        }
+        $stage = new Stage();
+        $stage->setName($data['name']);
 
-        if (!empty($errors)) {
-            throw new ValidationException($errors);
-        }
+        $this->repo->save($stage);
 
-        // salvaria no banco
-        return $data;
+        return $this->toArray($stage);
     }
 
-    public function update(int $_id, array $data): array
+    public function update(int $id, array $data): array
     {
-        $errors = [];
+        $stage = $this->repo->findById($id);
 
-        if (array_key_exists('name', $data) && empty($data['name'])) {
-            $errors['name'] = 'O nome não pode ser vazio.';
+        if ($stage === null) {
+            throw new EntityNotFoundException("Estágio {$id} não encontrado.");
         }
 
-        if (!empty($errors)) {
-            throw new ValidationException($errors);
+        (new Validator($data))
+            ->notEmpty('name', 'O nome não pode ser vazio.')
+            ->throw();
+
+        if (!empty($data['name'])) {
+            $stage->setName($data['name']);
         }
 
-        // atualizaria no banco
-        return $data;
+        $stage->setUpdatedAt(new \DateTimeImmutable());
+        $this->repo->save($stage);
+
+        return $this->toArray($stage);
+    }
+
+    private function toArray(Stage $stage): array
+    {
+        return [
+            'id'   => $stage->getId(),
+            'name' => $stage->getName(),
+        ];
     }
 }

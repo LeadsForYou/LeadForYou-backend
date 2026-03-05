@@ -2,46 +2,54 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Entity\Stage;
+use App\Tests\Integration\IntegrationTestCase;
 
-class StageControllerTest extends WebTestCase
+class StageControllerTest extends IntegrationTestCase
 {
-    public function testList(): void
+    public function testListReturnsNotFoundWhenEmpty(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/stage');
+        $this->json('GET', '/stage');
 
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseStatusCodeSame(200);
+        $this->assertSame(404, $this->statusCode());
+        $data = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('message', $data);
+    }
 
-        $data = json_decode($client->getResponse()->getContent(), true);
+    public function testCreateReturnsValidationErrorWithoutBody(): void
+    {
+        $this->json('POST', '/stage');
 
-        $this->assertArrayHasKey('id', $data);
+        $this->assertSame(422, $this->statusCode());
+        $data = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('errors', $data);
+    }
+
+    public function testCreateReturnsCreatedWithValidBody(): void
+    {
+        $data = $this->json('POST', '/stage', ['name' => 'Qualificação']);
+
+        $this->assertSame(201, $this->statusCode());
         $this->assertArrayHasKey('name', $data);
     }
 
-    public function testCreate(): void
+    public function testUpdateWithPatchMethod(): void
     {
-        $client = static::createClient();
-        $client->request('POST', '/stage');
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $this->em->persist($stage);
+        $this->em->flush();
 
-        $this->assertResponseStatusCodeSame(201);
+        $data = $this->json('PATCH', "/stage/{$stage->getId()}", ['name' => 'Negociação']);
 
-        $data = json_decode($client->getResponse()->getContent(), true);
-
+        $this->assertSame(200, $this->statusCode());
         $this->assertArrayHasKey('name', $data);
     }
 
-    public function testUpdate(): void
+    public function testUpdateReturnsNotFoundForMissingId(): void
     {
-        $client = static::createClient();
-        $client->request('PUT', '/stage/1');
+        $this->json('PATCH', '/stage/99999', ['name' => 'X']);
 
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseStatusCodeSame(200);
-
-        $data = json_decode($client->getResponse()->getContent(), true);
-
-        $this->assertArrayHasKey('name', $data);
+        $this->assertSame(404, $this->statusCode());
     }
 }

@@ -2,69 +2,84 @@
 
 namespace App\Service;
 
-use App\Exception\ValidationException;
+use App\Entity\User;
+use App\Exception\EntityNotFoundException;
+use App\Repository\UserRepository;
+use App\Validator\Validator;
 
 class UserService
 {
+    public function __construct(private readonly UserRepository $repo) {}
+
     public function findAll(): array
     {
-        // buscaria do banco
-        return [];
+        return array_map(fn(User $user) => $this->toArray($user), $this->repo->findAll());
     }
 
     public function create(array $data): array
     {
-        $errors = [];
+        (new Validator($data))
+            ->required('name', 'O nome é obrigatório.')
+            ->required('email', 'Um e-mail válido é obrigatório.')
+            ->email('email', 'Um e-mail válido é obrigatório.')
+            ->required('password', 'A senha deve ter no mínimo 8 caracteres.')
+            ->minLength('password', 8, 'A senha deve ter no mínimo 8 caracteres.')
+            ->required('role', 'O perfil é obrigatório.')
+            ->throw();
 
-        if (empty($data['name']) || !is_string($data['name'])) {
-            $errors['name'] = 'O nome é obrigatório.';
-        }
+        $user = new User();
+        $user->setName($data['name']);
+        $user->setEmail($data['email']);
+        $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
+        $user->setRole($data['role']);
 
-        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Um e-mail válido é obrigatório.';
-        }
+        $this->repo->save($user);
 
-        if (empty($data['password']) || strlen($data['password']) < 8) {
-            $errors['password'] = 'A senha deve ter no mínimo 8 caracteres.';
-        }
-
-        if (empty($data['role'])) {
-            $errors['role'] = 'O perfil é obrigatório.';
-        }
-
-        if (!empty($errors)) {
-            throw new ValidationException($errors);
-        }
-
-        // salvaria no banco
-        return $data;
+        return $this->toArray($user);
     }
 
-    public function update(int $_id, array $data): array
+    public function update(int $id, array $data): array
     {
-        $errors = [];
+        $user = $this->repo->findById($id);
 
-        if (array_key_exists('name', $data) && empty($data['name'])) {
-            $errors['name'] = 'O nome não pode ser vazio.';
+        if ($user === null) {
+            throw new EntityNotFoundException("Usuário {$id} não encontrado.");
         }
 
-        if (array_key_exists('email', $data) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'E-mail inválido.';
+        (new Validator($data))
+            ->notEmpty('name', 'O nome não pode ser vazio.')
+            ->email('email', 'E-mail inválido.')
+            ->minLength('password', 8, 'A senha deve ter no mínimo 8 caracteres.')
+            ->notEmpty('role', 'O perfil não pode ser vazio.')
+            ->throw();
+
+        if (!empty($data['name'])) {
+            $user->setName($data['name']);
+        }
+        if (!empty($data['email'])) {
+            $user->setEmail($data['email']);
+        }
+        if (!empty($data['password'])) {
+            $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
+        }
+        if (!empty($data['role'])) {
+            $user->setRole($data['role']);
         }
 
-        if (array_key_exists('password', $data) && strlen($data['password']) < 8) {
-            $errors['password'] = 'A senha deve ter no mínimo 8 caracteres.';
-        }
+        $user->setUpdatedAt(new \DateTimeImmutable());
+        $this->repo->save($user);
 
-        if (array_key_exists('role', $data) && empty($data['role'])) {
-            $errors['role'] = 'O perfil não pode ser vazio.';
-        }
+        return $this->toArray($user);
+    }
 
-        if (!empty($errors)) {
-            throw new ValidationException($errors);
-        }
-
-        // atualizaria no banco
-        return $data;
+    private function toArray(User $user): array
+    {
+        return [
+            'id'     => $user->getId(),
+            'name'   => $user->getName(),
+            'email'  => $user->getEmail(),
+            'role'   => $user->getRole(),
+            'active' => $user->isActive(),
+        ];
     }
 }
