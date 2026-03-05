@@ -18,6 +18,9 @@ container_database:
 composer_install:
 	docker compose exec -T php bash -c "composer install"
 
+db_diff:
+	docker compose exec -T php bash -c "php bin/console doctrine:migrations:diff -n"
+
 db_migrate:
 	docker compose exec -T php bash -c "php bin/console doctrine:migrations:migrate -n"
 
