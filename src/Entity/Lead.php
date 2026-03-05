@@ -2,16 +2,17 @@
 
 namespace App\Entity;
 
+use App\Repository\LeadRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: LeadRepository::class)]
 #[ORM\Table(name: 'leads')]
 class Lead
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'user_id', nullable: false)]
@@ -48,7 +49,7 @@ class Lead
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

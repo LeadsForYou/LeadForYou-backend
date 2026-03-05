@@ -27,10 +27,17 @@ db_migrate:
 db_fixtures:
 	docker compose exec -T php bash -c "php bin/console doctrine:fixtures:load -n --append"
 
-tests: load_fixtures
+db_setup_test:
+	docker compose exec -T php bash -c "php bin/console doctrine:database:create --env=test --if-not-exists -n"
+	docker compose exec -T php bash -c "php bin/console doctrine:migrations:migrate --env=test -n"
+
+tests: db_setup_test
 	docker compose exec -T php bash -c "php bin/phpunit"
 
-tests_coverage:
+tests_integration: db_setup_test
+	docker compose exec -T php bash -c "php bin/phpunit --testsuite Integration"
+
+tests_coverage: db_setup_test
 	docker compose exec -T php bash -c "XDEBUG_MODE=coverage php bin/phpunit --coverage-html var/coverage/html --coverage-text"
 
 cache_clear:

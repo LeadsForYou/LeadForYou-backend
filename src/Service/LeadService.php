@@ -2,93 +2,138 @@
 
 namespace App\Service;
 
+use App\Entity\Lead;
+use App\Exception\EntityNotFoundException;
 use App\Exception\ValidationException;
+use App\Repository\LeadRepository;
+use App\Repository\StageRepository;
+use App\Repository\UserRepository;
+use App\Validator\Validator;
 
 class LeadService
 {
+    public function __construct(
+        private readonly LeadRepository  $leadRepo,
+        private readonly UserRepository  $userRepo,
+        private readonly StageRepository $stageRepo,
+    ) {}
+
     public function findAll(): array
     {
-        // buscaria do banco
-        return [];
+        return array_map(fn(Lead $l) => $this->toArray($l), $this->leadRepo->findAll());
     }
 
     public function create(array $data): array
     {
+        (new Validator($data))
+            ->requiredInt('userId', 'O userId é obrigatório e deve ser um inteiro positivo.')
+            ->requiredInt('stageId', 'O stageId é obrigatório e deve ser um inteiro positivo.')
+            ->required('name', 'O nome é obrigatório.')
+            ->required('company', 'A empresa é obrigatória.')
+            ->required('email', 'Um e-mail válido é obrigatório.')
+            ->email('email', 'Um e-mail válido é obrigatório.')
+            ->required('phone', 'O telefone é obrigatório.')
+            ->required('value', 'O valor é obrigatório e deve ser um número positivo.')
+            ->positiveNumber('value', 'O valor é obrigatório e deve ser um número positivo.')
+            ->throw();
+
         $errors = [];
 
-        if (empty($data['userId']) || !is_int($data['userId']) || $data['userId'] <= 0) {
-            $errors['userId'] = 'O userId é obrigatório e deve ser um inteiro positivo.';
+        $user = $this->userRepo->findById($data['userId']);
+        if ($user === null) {
+            $errors['userId'] = 'Usuário não encontrado.';
         }
 
-        if (empty($data['stageId']) || !is_int($data['stageId']) || $data['stageId'] <= 0) {
-            $errors['stageId'] = 'O stageId é obrigatório e deve ser um inteiro positivo.';
-        }
-
-        if (empty($data['name']) || !is_string($data['name'])) {
-            $errors['name'] = 'O nome é obrigatório.';
-        }
-
-        if (empty($data['company']) || !is_string($data['company'])) {
-            $errors['company'] = 'A empresa é obrigatória.';
-        }
-
-        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Um e-mail válido é obrigatório.';
-        }
-
-        if (empty($data['phone']) || !is_string($data['phone'])) {
-            $errors['phone'] = 'O telefone é obrigatório.';
-        }
-
-        if (!isset($data['value']) || !is_numeric($data['value']) || $data['value'] <= 0) {
-            $errors['value'] = 'O valor é obrigatório e deve ser um número positivo.';
+        $stage = $this->stageRepo->findById($data['stageId']);
+        if ($stage === null) {
+            $errors['stageId'] = 'Estágio não encontrado.';
         }
 
         if (!empty($errors)) {
             throw new ValidationException($errors);
         }
 
-        // salvaria no banco
-        return $data;
+        $lead = new Lead();
+        $lead->setUser($user);
+        $lead->setStage($stage);
+        $lead->setName($data['name']);
+        $lead->setCompany($data['company']);
+        $lead->setEmail($data['email']);
+        $lead->setPhone($data['phone']);
+        $lead->setValue($data['value']);
+
+        $this->leadRepo->save($lead);
+
+        return $this->toArray($lead);
     }
 
-    public function update(int $_id, array $data): array
+    public function update(int $id, array $data): array
     {
-        $errors = [];
+        $lead = $this->leadRepo->findById($id);
 
-        if (array_key_exists('userId', $data) && (!is_int($data['userId']) || $data['userId'] <= 0)) {
-            $errors['userId'] = 'userId deve ser um inteiro positivo.';
+        if ($lead === null) {
+            throw new EntityNotFoundException("Lead {$id} não encontrado.");
         }
 
-        if (array_key_exists('stageId', $data) && (!is_int($data['stageId']) || $data['stageId'] <= 0)) {
-            $errors['stageId'] = 'stageId deve ser um inteiro positivo.';
+        (new Validator($data))
+            ->positiveInt('userId', 'userId deve ser um inteiro positivo.')
+            ->positiveInt('stageId', 'stageId deve ser um inteiro positivo.')
+            ->notEmpty('name', 'O nome não pode ser vazio.')
+            ->notEmpty('company', 'A empresa não pode ser vazia.')
+            ->email('email', 'E-mail inválido.')
+            ->notEmpty('phone', 'O telefone não pode ser vazio.')
+            ->positiveNumber('value', 'O valor deve ser um número positivo.')
+            ->throw();
+
+        if (!empty($data['userId'])) {
+            $user = $this->userRepo->findById($data['userId']);
+            if ($user === null) {
+                throw new ValidationException(['userId' => 'Usuário não encontrado.']);
+            }
+            $lead->setUser($user);
         }
 
-        if (array_key_exists('name', $data) && empty($data['name'])) {
-            $errors['name'] = 'O nome não pode ser vazio.';
+        if (!empty($data['stageId'])) {
+            $stage = $this->stageRepo->findById($data['stageId']);
+            if ($stage === null) {
+                throw new ValidationException(['stageId' => 'Estágio não encontrado.']);
+            }
+            $lead->setStage($stage);
         }
 
-        if (array_key_exists('company', $data) && empty($data['company'])) {
-            $errors['company'] = 'A empresa não pode ser vazia.';
+        if (!empty($data['name'])) {
+            $lead->setName($data['name']);
+        }
+        if (!empty($data['company'])) {
+            $lead->setCompany($data['company']);
+        }
+        if (!empty($data['email'])) {
+            $lead->setEmail($data['email']);
+        }
+        if (!empty($data['phone'])) {
+            $lead->setPhone($data['phone']);
+        }
+        if (!empty($data['value'])) {
+            $lead->setValue($data['value']);
         }
 
-        if (array_key_exists('email', $data) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'E-mail inválido.';
-        }
+        $lead->setUpdatedAt(new \DateTimeImmutable());
+        $this->leadRepo->save($lead);
 
-        if (array_key_exists('phone', $data) && empty($data['phone'])) {
-            $errors['phone'] = 'O telefone não pode ser vazio.';
-        }
+        return $this->toArray($lead);
+    }
 
-        if (array_key_exists('value', $data) && (!is_numeric($data['value']) || $data['value'] <= 0)) {
-            $errors['value'] = 'O valor deve ser um número positivo.';
-        }
-
-        if (!empty($errors)) {
-            throw new ValidationException($errors);
-        }
-
-        // atualizaria no banco
-        return $data;
+    private function toArray(Lead $lead): array
+    {
+        return [
+            'id'      => $lead->getId(),
+            'userId'  => $lead->getUser()->getId(),
+            'stageId' => $lead->getStage()->getId(),
+            'name'    => $lead->getName(),
+            'company' => $lead->getCompany(),
+            'email'   => $lead->getEmail(),
+            'phone'   => $lead->getPhone(),
+            'value'   => $lead->getValue(),
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Exception\EntityNotFoundException;
 use App\Exception\ValidationException;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +41,8 @@ final class UserController extends AbstractController
 
         try {
             return $this->json($this->userService->update($id, $data));
+        } catch (EntityNotFoundException $e) {
+            return $this->json(['message' => $e->getMessage()], JsonResponse::HTTP_NOT_FOUND);
         } catch (ValidationException $e) {
             return $this->json(['errors' => $e->getErrors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
