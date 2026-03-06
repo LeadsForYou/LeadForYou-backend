@@ -26,7 +26,7 @@ class StageIntegrationTest extends IntegrationTestCase
         $response = $this->json('POST', '/stage', ['name' => 'Prospecção']);
 
         $this->assertSame(201, $this->statusCode());
-        $this->assertSame('Prospecção', $response['name']);
+        $this->assertSame('Prospecção', $response['data']['name']);
     }
 
     public function testPostWithoutBodyReturns422(): void
@@ -59,7 +59,7 @@ class StageIntegrationTest extends IntegrationTestCase
         $response = $this->json('PATCH', "/stage/{$stage->getId()}", ['name' => 'Qualificação']);
 
         $this->assertSame(200, $this->statusCode());
-        $this->assertSame('Qualificação', $response['name']);
+        $this->assertSame('Qualificação', $response['data']['name']);
     }
 
     public function testPatchWithEmptyNameReturns422(): void

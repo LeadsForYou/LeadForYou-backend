@@ -83,6 +83,15 @@ class Validator
         return $this;
     }
 
+    public function check(string $field, bool $condition, string $message): static
+    {
+        if (!$this->hasError($field) && $this->has($field) && !$condition) {
+            $this->errors[$field] = $message;
+        }
+
+        return $this;
+    }
+
     public function throw(): void
     {
         if (!empty($this->errors)) {

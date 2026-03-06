@@ -35,9 +35,9 @@ class UserControllerTest extends IntegrationTestCase
         ]);
 
         $this->assertSame(201, $this->statusCode());
-        $this->assertArrayHasKey('name', $data);
-        $this->assertArrayHasKey('email', $data);
-        $this->assertArrayHasKey('role', $data);
+        $this->assertArrayHasKey('name', $data['data']);
+        $this->assertArrayHasKey('email', $data['data']);
+        $this->assertArrayHasKey('role', $data['data']);
     }
 
     public function testUpdateWithPatchMethod(): void
@@ -56,8 +56,8 @@ class UserControllerTest extends IntegrationTestCase
         ]);
 
         $this->assertSame(200, $this->statusCode());
-        $this->assertArrayHasKey('name', $data);
-        $this->assertArrayHasKey('email', $data);
+        $this->assertArrayHasKey('name', $data['data']);
+        $this->assertArrayHasKey('email', $data['data']);
     }
 
     public function testUpdateReturnsNotFoundForMissingId(): void

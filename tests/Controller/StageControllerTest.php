@@ -30,7 +30,7 @@ class StageControllerTest extends IntegrationTestCase
         $data = $this->json('POST', '/stage', ['name' => 'Qualificação']);
 
         $this->assertSame(201, $this->statusCode());
-        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('name', $data['data']);
     }
 
     public function testUpdateWithPatchMethod(): void
@@ -43,7 +43,7 @@ class StageControllerTest extends IntegrationTestCase
         $data = $this->json('PATCH', "/stage/{$stage->getId()}", ['name' => 'Negociação']);
 
         $this->assertSame(200, $this->statusCode());
-        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('name', $data['data']);
     }
 
     public function testUpdateReturnsNotFoundForMissingId(): void

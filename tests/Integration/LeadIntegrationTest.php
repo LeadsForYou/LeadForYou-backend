@@ -62,10 +62,10 @@ class LeadIntegrationTest extends IntegrationTestCase
         $response = $this->json('POST', '/lead', $this->validLead());
 
         $this->assertSame(201, $this->statusCode());
-        $this->assertSame('João Silva', $response['name']);
-        $this->assertSame('Tech Ltda', $response['company']);
-        $this->assertSame('joao@tech.com', $response['email']);
-        $this->assertSame('1500.00', $response['value']);
+        $this->assertSame('João Silva', $response['data']['name']);
+        $this->assertSame('Tech Ltda', $response['data']['company']);
+        $this->assertSame('joao@tech.com', $response['data']['email']);
+        $this->assertSame('1500.00', $response['data']['value']);
     }
 
     public function testPostWithoutBodyReturns422(): void
@@ -137,8 +137,8 @@ class LeadIntegrationTest extends IntegrationTestCase
         ]);
 
         $this->assertSame(200, $this->statusCode());
-        $this->assertSame('João Atualizado', $response['name']);
-        $this->assertSame('2500.00', $response['value']);
+        $this->assertSame('João Atualizado', $response['data']['name']);
+        $this->assertSame('2500.00', $response['data']['value']);
     }
 
     public function testPatchWithInvalidEmailReturns422(): void

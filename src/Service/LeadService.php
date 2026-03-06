@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Lead;
 use App\Exception\EntityNotFoundException;
-use App\Exception\ValidationException;
 use App\Repository\LeadRepository;
 use App\Repository\StageRepository;
 use App\Repository\UserRepository;
@@ -25,6 +24,9 @@ class LeadService
 
     public function create(array $data): array
     {
+        $user  = isset($data['userId'])  && is_int($data['userId'])  ? $this->userRepo->findById($data['userId'])  : null;
+        $stage = isset($data['stageId']) && is_int($data['stageId']) ? $this->stageRepo->findById($data['stageId']) : null;
+
         (new Validator($data))
             ->requiredInt('userId', 'O userId é obrigatório e deve ser um inteiro positivo.')
             ->requiredInt('stageId', 'O stageId é obrigatório e deve ser um inteiro positivo.')
@@ -35,23 +37,9 @@ class LeadService
             ->required('phone', 'O telefone é obrigatório.')
             ->required('value', 'O valor é obrigatório e deve ser um número positivo.')
             ->positiveNumber('value', 'O valor é obrigatório e deve ser um número positivo.')
+            ->check('userId', $user !== null, 'Usuário não encontrado.')
+            ->check('stageId', $stage !== null, 'Estágio não encontrado.')
             ->throw();
-
-        $errors = [];
-
-        $user = $this->userRepo->findById($data['userId']);
-        if ($user === null) {
-            $errors['userId'] = 'Usuário não encontrado.';
-        }
-
-        $stage = $this->stageRepo->findById($data['stageId']);
-        if ($stage === null) {
-            $errors['stageId'] = 'Estágio não encontrado.';
-        }
-
-        if (!empty($errors)) {
-            throw new ValidationException($errors);
-        }
 
         $lead = new Lead();
         $lead->setUser($user);
@@ -75,6 +63,9 @@ class LeadService
             throw new EntityNotFoundException("Lead {$id} não encontrado.");
         }
 
+        $user  = isset($data['userId'])  && is_int($data['userId'])  ? $this->userRepo->findById($data['userId'])  : null;
+        $stage = isset($data['stageId']) && is_int($data['stageId']) ? $this->stageRepo->findById($data['stageId']) : null;
+
         (new Validator($data))
             ->positiveInt('userId', 'userId deve ser um inteiro positivo.')
             ->positiveInt('stageId', 'stageId deve ser um inteiro positivo.')
@@ -83,24 +74,16 @@ class LeadService
             ->email('email', 'E-mail inválido.')
             ->notEmpty('phone', 'O telefone não pode ser vazio.')
             ->positiveNumber('value', 'O valor deve ser um número positivo.')
+            ->check('userId', $user !== null, 'Usuário não encontrado.')
+            ->check('stageId', $stage !== null, 'Estágio não encontrado.')
             ->throw();
 
-        if (!empty($data['userId'])) {
-            $user = $this->userRepo->findById($data['userId']);
-            if ($user === null) {
-                throw new ValidationException(['userId' => 'Usuário não encontrado.']);
-            }
+        if ($user !== null) {
             $lead->setUser($user);
         }
-
-        if (!empty($data['stageId'])) {
-            $stage = $this->stageRepo->findById($data['stageId']);
-            if ($stage === null) {
-                throw new ValidationException(['stageId' => 'Estágio não encontrado.']);
-            }
+        if ($stage !== null) {
             $lead->setStage($stage);
         }
-
         if (!empty($data['name'])) {
             $lead->setName($data['name']);
         }

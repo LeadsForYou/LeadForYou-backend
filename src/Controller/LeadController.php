@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Exception\EntityNotFoundException;
 use App\Exception\ValidationException;
+use App\Http\ApiResponse;
 use App\Service\LeadService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,10 +19,10 @@ final class LeadController extends AbstractController
         $data = $this->leadService->findAll();
 
         if (empty($data)) {
-            return $this->json(['message' => 'Nenhum lead encontrado.'], JsonResponse::HTTP_NOT_FOUND);
+            return ApiResponse::notFound('Nenhum lead encontrado.');
         }
 
-        return $this->json($data);
+        return ApiResponse::success($data);
     }
 
     public function create(Request $request): JsonResponse
@@ -29,9 +30,9 @@ final class LeadController extends AbstractController
         $data = $request->getContent() !== '' ? $request->toArray() : [];
 
         try {
-            return $this->json($this->leadService->create($data), JsonResponse::HTTP_CREATED);
+            return ApiResponse::created($this->leadService->create($data));
         } catch (ValidationException $e) {
-            return $this->json(['errors' => $e->getErrors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            return ApiResponse::validationError($e->getErrors());
         }
     }
 
@@ -40,11 +41,11 @@ final class LeadController extends AbstractController
         $data = $request->getContent() !== '' ? $request->toArray() : [];
 
         try {
-            return $this->json($this->leadService->update($id, $data));
+            return ApiResponse::success($this->leadService->update($id, $data));
         } catch (EntityNotFoundException $e) {
-            return $this->json(['message' => $e->getMessage()], JsonResponse::HTTP_NOT_FOUND);
+            return ApiResponse::notFound($e->getMessage());
         } catch (ValidationException $e) {
-            return $this->json(['errors' => $e->getErrors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            return ApiResponse::validationError($e->getErrors());
         }
     }
 }
