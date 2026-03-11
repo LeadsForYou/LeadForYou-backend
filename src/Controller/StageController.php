@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class StageController extends AbstractController
 {
-    public function __construct(private readonly StageService $stageService) {}
+    public function __construct(private readonly StageService $stageService)
+    {
+    }
 
     public function list(): JsonResponse
     {
@@ -27,7 +29,7 @@ final class StageController extends AbstractController
 
     public function create(Request $request): JsonResponse
     {
-        $data = $request->getContent() !== '' ? $request->toArray() : [];
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
 
         try {
             return ApiResponse::created($this->stageService->create($data));
@@ -38,7 +40,7 @@ final class StageController extends AbstractController
 
     public function update(int $id, Request $request): JsonResponse
     {
-        $data = $request->getContent() !== '' ? $request->toArray() : [];
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
 
         try {
             return ApiResponse::success($this->stageService->update($id, $data));

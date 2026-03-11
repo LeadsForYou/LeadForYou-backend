@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class LeadController extends AbstractController
 {
-    public function __construct(private readonly LeadService $leadService) {}
+    public function __construct(private readonly LeadService $leadService)
+    {
+    }
 
     public function list(): JsonResponse
     {
@@ -27,7 +29,7 @@ final class LeadController extends AbstractController
 
     public function create(Request $request): JsonResponse
     {
-        $data = $request->getContent() !== '' ? $request->toArray() : [];
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
 
         try {
             return ApiResponse::created($this->leadService->create($data));
@@ -38,7 +40,7 @@ final class LeadController extends AbstractController
 
     public function update(int $id, Request $request): JsonResponse
     {
-        $data = $request->getContent() !== '' ? $request->toArray() : [];
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
 
         try {
             return ApiResponse::success($this->leadService->update($id, $data));

@@ -8,7 +8,9 @@ class Validator
 {
     private array $errors = [];
 
-    public function __construct(private readonly array $data) {}
+    public function __construct(private readonly array $data)
+    {
+    }
 
     private function has(string $field): bool
     {

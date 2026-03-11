@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class UserController extends AbstractController
 {
-    public function __construct(private readonly UserService $userService) {}
+    public function __construct(private readonly UserService $userService)
+    {
+    }
 
     public function list(): JsonResponse
     {
@@ -27,7 +29,7 @@ final class UserController extends AbstractController
 
     public function create(Request $request): JsonResponse
     {
-        $data = $request->getContent() !== '' ? $request->toArray() : [];
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
 
         try {
             return ApiResponse::created($this->userService->create($data));
@@ -38,7 +40,7 @@ final class UserController extends AbstractController
 
     public function update(int $id, Request $request): JsonResponse
     {
-        $data = $request->getContent() !== '' ? $request->toArray() : [];
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
 
         try {
             return ApiResponse::success($this->userService->update($id, $data));
