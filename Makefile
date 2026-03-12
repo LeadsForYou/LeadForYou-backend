@@ -51,10 +51,10 @@ reset:
 	docker compose exec -T php bash -c "php bin/console doctrine:migrations:migrate -n"
 
 code_style:
-	docker compose exec -T php bash -c "php bin/console app:code-style"
+	docker compose exec -T php bash -c "php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff -vvv"
 
 style:
-    docker compose exec -T php bash -c "php vendor/bin/php-cs-fixer fix --dry-run --diff -vvv"
+	docker compose exec -T php bash -c "php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff -vvv"
 
 generate_keys:
 	docker compose exec -T php bash -c "php bin/console lexik:jwt:generate-keypair --overwrite"
