@@ -1,0 +1,14 @@
+lead_list:
+  path: /lead
+  controller: App\Controller\LeadController::list
+  methods: [GET]
+
+lead_create:
+  path: /lead
+  controller: App\Controller\LeadController::create
+  methods: [POST]
+
+lead_update:
+  path: /lead/{id}
+  controller: App\Controller\LeadController::update
+  methods: [PATCH]

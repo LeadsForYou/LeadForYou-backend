@@ -1,7 +1,10 @@
-.PHONY: up install_dependencies generate_proxies migrate_database load_fixtures install_frontend compile_frontend generate_keys
+.PHONY: up build install_dependencies generate_proxies migrate_database load_fixtures install_frontend compile_frontend generate_keys install_phpunit tests_coverage
 
 up:
 	docker compose up -d
+
+build:
+	docker compose down && docker compose build && docker compose up -d
 
 down:
 	docker compose down
@@ -9,11 +12,14 @@ down:
 container_php:
 	docker compose exec -it php bash
 
-container_mysql:
-	docker compose exec -it mysql bash
+container_database:
+	docker compose exec -it database bash
 
 composer_install:
 	docker compose exec -T php bash -c "composer install"
+
+db_diff:
+	docker compose exec -T php bash -c "php bin/console doctrine:migrations:diff -n"
 
 db_migrate:
 	docker compose exec -T php bash -c "php bin/console doctrine:migrations:migrate -n"
@@ -21,8 +27,18 @@ db_migrate:
 db_fixtures:
 	docker compose exec -T php bash -c "php bin/console doctrine:fixtures:load -n --append"
 
-tests: load_fixtures
+db_setup_test:
+	docker compose exec -T php bash -c "php bin/console doctrine:database:create --env=test --if-not-exists -n"
+	docker compose exec -T php bash -c "php bin/console doctrine:migrations:migrate --env=test -n"
+
+tests: db_setup_test
 	docker compose exec -T php bash -c "php bin/phpunit"
+
+tests_integration: db_setup_test
+	docker compose exec -T php bash -c "php bin/phpunit --testsuite Integration"
+
+tests_coverage: db_setup_test
+	docker compose exec -T php bash -c "XDEBUG_MODE=coverage php bin/phpunit --coverage-html var/coverage/html --coverage-text"
 
 cache_clear:
 	docker compose exec -T php bash -c "php bin/console cache:clear"

@@ -1,0 +1,14 @@
+user_list:
+  path: /user
+  controller: App\Controller\UserController::list
+  methods: [GET]
+
+user_create:
+  path: /user
+  controller: App\Controller\UserController::create
+  methods: [POST]
+
+user_update:
+  path: /user/{id}
+  controller: App\Controller\UserController::update
+  methods: [PATCH]
