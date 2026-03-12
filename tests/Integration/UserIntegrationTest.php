@@ -33,9 +33,9 @@ class UserIntegrationTest extends IntegrationTestCase
         $response = $this->json('POST', '/user', $this->validUser);
 
         $this->assertSame(201, $this->statusCode());
-        $this->assertSame('João Silva', $response['name']);
-        $this->assertSame('joao@email.com', $response['email']);
-        $this->assertSame('admin', $response['role']);
+        $this->assertSame('João Silva', $response['data']['name']);
+        $this->assertSame('joao@email.com', $response['data']['email']);
+        $this->assertSame('admin', $response['data']['role']);
     }
 
     public function testPostWithoutBodyReturns422(): void
@@ -92,8 +92,8 @@ class UserIntegrationTest extends IntegrationTestCase
         ]);
 
         $this->assertSame(200, $this->statusCode());
-        $this->assertSame('João Atualizado', $response['name']);
-        $this->assertSame('novo@email.com', $response['email']);
+        $this->assertSame('João Atualizado', $response['data']['name']);
+        $this->assertSame('novo@email.com', $response['data']['email']);
     }
 
     public function testPatchWithInvalidEmailReturns422(): void

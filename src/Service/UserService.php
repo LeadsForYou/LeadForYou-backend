@@ -9,11 +9,13 @@ use App\Validator\Validator;
 
 class UserService
 {
-    public function __construct(private readonly UserRepository $repo) {}
+    public function __construct(private readonly UserRepository $repo)
+    {
+    }
 
     public function findAll(): array
     {
-        return array_map(fn(User $user) => $this->toArray($user), $this->repo->findAll());
+        return array_map(fn (User $user) => $this->toArray($user), $this->repo->findAll());
     }
 
     public function create(array $data): array
@@ -42,7 +44,7 @@ class UserService
     {
         $user = $this->repo->findById($id);
 
-        if ($user === null) {
+        if (null === $user) {
             throw new EntityNotFoundException("Usuário {$id} não encontrado.");
         }
 
@@ -75,10 +77,10 @@ class UserService
     private function toArray(User $user): array
     {
         return [
-            'id'     => $user->getId(),
-            'name'   => $user->getName(),
-            'email'  => $user->getEmail(),
-            'role'   => $user->getRole(),
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+            'role' => $user->getRole(),
             'active' => $user->isActive(),
         ];
     }

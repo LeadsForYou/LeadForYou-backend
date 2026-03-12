@@ -61,10 +61,10 @@ class LeadControllerTest extends IntegrationTestCase
         ]);
 
         $this->assertSame(201, $this->statusCode());
-        $this->assertArrayHasKey('name', $data);
-        $this->assertArrayHasKey('email', $data);
-        $this->assertArrayHasKey('company', $data);
-        $this->assertArrayHasKey('value', $data);
+        $this->assertArrayHasKey('name', $data['data']);
+        $this->assertArrayHasKey('email', $data['data']);
+        $this->assertArrayHasKey('company', $data['data']);
+        $this->assertArrayHasKey('value', $data['data']);
     }
 
     public function testUpdateWithPatchMethod(): void
@@ -86,8 +86,8 @@ class LeadControllerTest extends IntegrationTestCase
         ]);
 
         $this->assertSame(200, $this->statusCode());
-        $this->assertArrayHasKey('name', $data);
-        $this->assertArrayHasKey('value', $data);
+        $this->assertArrayHasKey('name', $data['data']);
+        $this->assertArrayHasKey('value', $data['data']);
     }
 
     public function testUpdateReturnsNotFoundForMissingId(): void

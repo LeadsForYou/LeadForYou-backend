@@ -8,7 +8,9 @@ class Validator
 {
     private array $errors = [];
 
-    public function __construct(private readonly array $data) {}
+    public function __construct(private readonly array $data)
+    {
+    }
 
     private function has(string $field): bool
     {
@@ -77,6 +79,15 @@ class Validator
     public function positiveNumber(string $field, string $message): static
     {
         if (!$this->hasError($field) && $this->has($field) && (!is_numeric($this->data[$field]) || $this->data[$field] <= 0)) {
+            $this->errors[$field] = $message;
+        }
+
+        return $this;
+    }
+
+    public function check(string $field, bool $condition, string $message): static
+    {
+        if (!$this->hasError($field) && $this->has($field) && !$condition) {
             $this->errors[$field] = $message;
         }
 
