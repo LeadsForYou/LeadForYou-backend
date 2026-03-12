@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-php-
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
 
       - name: Generate JWT keys
         run: php bin/console lexik:jwt:generate-keypair --overwrite
