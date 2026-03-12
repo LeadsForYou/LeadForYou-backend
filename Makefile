@@ -53,6 +53,9 @@ reset:
 code_style:
 	docker compose exec -T php bash -c "php bin/console app:code-style"
 
+style:
+    docker compose exec -T php bash -c "php vendor/bin/php-cs-fixer fix --dry-run --diff -vvv"
+
 generate_keys:
 	docker compose exec -T php bash -c "php bin/console lexik:jwt:generate-keypair --overwrite"
 
