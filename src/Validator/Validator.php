@@ -11,6 +11,7 @@ class Validator
     public function __construct(private readonly array $data)
     {
     }
+    // teste
 
     private function has(string $field): bool
     {
