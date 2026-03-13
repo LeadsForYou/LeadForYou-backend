@@ -1,0 +1,80 @@
+name: Symfony
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  symfony-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: leadforyou
+          POSTGRES_USER: leadforyou
+          POSTGRES_PASSWORD: leadforyou
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: pdo_pgsql
+          coverage: xdebug
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
+
+      - name: Generate JWT keys
+        run: php bin/console lexik:jwt:generate-keypair --overwrite
+        env:
+          APP_ENV: test
+          JWT_PASSPHRASE: ${{ secrets.JWT_PASSPHRASE || '198e6e08a3835fe08bb052cf5ca853d8c256bc70717f1874c25fb2c383eb7720' }}
+
+      - name: Create test database
+        env:
+          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou?serverVersion=16&charset=utf8
+        run: php bin/console doctrine:database:create --env=test --if-not-exists -n
+
+      - name: Run Migrations
+        env:
+          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou?serverVersion=16&charset=utf8
+        run: php bin/console doctrine:migrations:migrate -n --env=test
+
+      - name: Execute tests via PHPUnit
+        env:
+          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou?serverVersion=16&charset=utf8
+          JWT_PASSPHRASE: ${{ secrets.JWT_PASSPHRASE || '198e6e08a3835fe08bb052cf5ca853d8c256bc70717f1874c25fb2c383eb7720' }}
+          XDEBUG_MODE: coverage
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
