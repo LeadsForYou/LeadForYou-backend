@@ -59,23 +59,30 @@ jobs:
 
       - name: Create test database
         env:
-          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou?serverVersion=16&charset=utf8
+          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou_test?serverVersion=16&charset=utf8
         run: php bin/console doctrine:database:create --env=test --if-not-exists -n
 
       - name: Run Migrations
         env:
-          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou?serverVersion=16&charset=utf8
+          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou_test?serverVersion=16&charset=utf8
         run: php bin/console doctrine:migrations:migrate -n --env=test
 
       - name: Execute tests via PHPUnit
         env:
-          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou?serverVersion=16&charset=utf8
+          DATABASE_URL: postgresql://leadforyou:leadforyou@127.0.0.1:5432/leadforyou_test?serverVersion=16&charset=utf8
           JWT_PASSPHRASE: ${{ secrets.JWT_PASSPHRASE || '198e6e08a3835fe08bb052cf5ca853d8c256bc70717f1874c25fb2c383eb7720' }}
           XDEBUG_MODE: coverage
-        run: vendor/bin/phpunit --coverage-clover coverage.xml
+        run: vendor/bin/phpunit --coverage-clover coverage.xml --log-junit junit.xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: junit.xml
