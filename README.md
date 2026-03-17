@@ -1,5 +1,5 @@
 
-[![codecov](https://codecov.io/gh/nome-da-org/nome-do-repo/branch/main/graph/badge.svg)](https://codecov.io/gh/nome-da-org/nome-do-repo)
+[![codecov](https://codecov.io/gh//LeadsForYou/LeadForYou-backend/branch/main/graph/badge.svg)](https://codecov.io/gh/LeadsForYou/LeadForYou-backend)
 
 
 
