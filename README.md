@@ -1,3 +1,8 @@
+
+[![codecov](https://codecov.io/gh/LeadsForYou/LeadForYou-backend/branch/main/graph/badge.svg)](https://codecov.io/gh/LeadsForYou/LeadForYou-backend)
+
+
+
 # LeadForYou
 
 Este é um repositório padrão para desenvolvimento de aplicações usando Docker, PHP, Symfony e MySQL
