@@ -1,678 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="/var/www/phpunit.xml.dist" tests="94" assertions="73" errors="45" failures="0" skipped="0" time="0.153499">
-    <testsuite name="Project Test Suite" tests="64" assertions="73" errors="15" failures="0" skipped="0" time="0.153499">
-      <testsuite name="App\Tests\Controller\LeadControllerTest" file="/var/www/tests/Controller/LeadControllerTest.php" tests="5" assertions="0" errors="5" failures="0" skipped="0" time="0.000000">
-        <testcase name="testListReturnsNotFoundWhenEmpty" file="/var/www/tests/Controller/LeadControllerTest.php" line="33" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\LeadControllerTest::testListReturnsNotFoundWhenEmpty
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Controller/LeadControllerTest.php:17
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testCreateReturnsValidationErrorWithoutBody" file="/var/www/tests/Controller/LeadControllerTest.php" line="42" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\LeadControllerTest::testCreateReturnsValidationErrorWithoutBody
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Controller/LeadControllerTest.php:17
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testCreateReturnsCreatedWithValidBody" file="/var/www/tests/Controller/LeadControllerTest.php" line="51" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\LeadControllerTest::testCreateReturnsCreatedWithValidBody
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Controller/LeadControllerTest.php:17
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUpdateWithPatchMethod" file="/var/www/tests/Controller/LeadControllerTest.php" line="70" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\LeadControllerTest::testUpdateWithPatchMethod
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Controller/LeadControllerTest.php:17
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUpdateReturnsNotFoundForMissingId" file="/var/www/tests/Controller/LeadControllerTest.php" line="93" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\LeadControllerTest::testUpdateReturnsNotFoundForMissingId
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Controller/LeadControllerTest.php:17
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
+  <testsuite name="/var/www/phpunit.xml.dist" tests="94" assertions="180" errors="0" failures="0" skipped="0" time="1.308459">
+    <testsuite name="Project Test Suite" tests="64" assertions="107" errors="0" failures="0" skipped="0" time="0.707164">
+      <testsuite name="App\Tests\Controller\LeadControllerTest" file="/var/www/tests/Controller/LeadControllerTest.php" tests="5" assertions="13" errors="0" failures="0" skipped="0" time="0.245615">
+        <testcase name="testListReturnsNotFoundWhenEmpty" file="/var/www/tests/Controller/LeadControllerTest.php" line="33" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="2" time="0.161757"/>
+        <testcase name="testCreateReturnsValidationErrorWithoutBody" file="/var/www/tests/Controller/LeadControllerTest.php" line="42" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="2" time="0.015578"/>
+        <testcase name="testCreateReturnsCreatedWithValidBody" file="/var/www/tests/Controller/LeadControllerTest.php" line="51" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="5" time="0.018544"/>
+        <testcase name="testUpdateWithPatchMethod" file="/var/www/tests/Controller/LeadControllerTest.php" line="70" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="3" time="0.020923"/>
+        <testcase name="testUpdateReturnsNotFoundForMissingId" file="/var/www/tests/Controller/LeadControllerTest.php" line="93" class="App\Tests\Controller\LeadControllerTest" classname="App.Tests.Controller.LeadControllerTest" assertions="1" time="0.028814"/>
       </testsuite>
-      <testsuite name="App\Tests\Controller\StageControllerTest" file="/var/www/tests/Controller/StageControllerTest.php" tests="5" assertions="0" errors="5" failures="0" skipped="0" time="0.000000">
-        <testcase name="testListReturnsNotFoundWhenEmpty" file="/var/www/tests/Controller/StageControllerTest.php" line="10" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\StageControllerTest::testListReturnsNotFoundWhenEmpty
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testCreateReturnsValidationErrorWithoutBody" file="/var/www/tests/Controller/StageControllerTest.php" line="19" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\StageControllerTest::testCreateReturnsValidationErrorWithoutBody
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testCreateReturnsCreatedWithValidBody" file="/var/www/tests/Controller/StageControllerTest.php" line="28" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\StageControllerTest::testCreateReturnsCreatedWithValidBody
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUpdateWithPatchMethod" file="/var/www/tests/Controller/StageControllerTest.php" line="36" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\StageControllerTest::testUpdateWithPatchMethod
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUpdateReturnsNotFoundForMissingId" file="/var/www/tests/Controller/StageControllerTest.php" line="49" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\StageControllerTest::testUpdateReturnsNotFoundForMissingId
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
+      <testsuite name="App\Tests\Controller\StageControllerTest" file="/var/www/tests/Controller/StageControllerTest.php" tests="5" assertions="9" errors="0" failures="0" skipped="0" time="0.076914">
+        <testcase name="testListReturnsNotFoundWhenEmpty" file="/var/www/tests/Controller/StageControllerTest.php" line="10" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="2" time="0.016888"/>
+        <testcase name="testCreateReturnsValidationErrorWithoutBody" file="/var/www/tests/Controller/StageControllerTest.php" line="19" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="2" time="0.014607"/>
+        <testcase name="testCreateReturnsCreatedWithValidBody" file="/var/www/tests/Controller/StageControllerTest.php" line="28" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="2" time="0.015390"/>
+        <testcase name="testUpdateWithPatchMethod" file="/var/www/tests/Controller/StageControllerTest.php" line="36" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="2" time="0.017281"/>
+        <testcase name="testUpdateReturnsNotFoundForMissingId" file="/var/www/tests/Controller/StageControllerTest.php" line="49" class="App\Tests\Controller\StageControllerTest" classname="App.Tests.Controller.StageControllerTest" assertions="1" time="0.012747"/>
       </testsuite>
-      <testsuite name="App\Tests\Controller\UserControllerTest" file="/var/www/tests/Controller/UserControllerTest.php" tests="5" assertions="0" errors="5" failures="0" skipped="0" time="0.000000">
-        <testcase name="testListReturnsNotFoundWhenEmpty" file="/var/www/tests/Controller/UserControllerTest.php" line="10" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\UserControllerTest::testListReturnsNotFoundWhenEmpty
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testCreateReturnsValidationErrorWithoutBody" file="/var/www/tests/Controller/UserControllerTest.php" line="19" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\UserControllerTest::testCreateReturnsValidationErrorWithoutBody
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testCreateReturnsCreatedWithValidBody" file="/var/www/tests/Controller/UserControllerTest.php" line="28" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\UserControllerTest::testCreateReturnsCreatedWithValidBody
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUpdateWithPatchMethod" file="/var/www/tests/Controller/UserControllerTest.php" line="43" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\UserControllerTest::testUpdateWithPatchMethod
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUpdateReturnsNotFoundForMissingId" file="/var/www/tests/Controller/UserControllerTest.php" line="63" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Controller\UserControllerTest::testUpdateReturnsNotFoundForMissingId
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
+      <testsuite name="App\Tests\Controller\UserControllerTest" file="/var/www/tests/Controller/UserControllerTest.php" tests="5" assertions="12" errors="0" failures="0" skipped="0" time="0.231352">
+        <testcase name="testListReturnsNotFoundWhenEmpty" file="/var/www/tests/Controller/UserControllerTest.php" line="10" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="2" time="0.014764"/>
+        <testcase name="testCreateReturnsValidationErrorWithoutBody" file="/var/www/tests/Controller/UserControllerTest.php" line="19" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="2" time="0.016130"/>
+        <testcase name="testCreateReturnsCreatedWithValidBody" file="/var/www/tests/Controller/UserControllerTest.php" line="28" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="4" time="0.169383"/>
+        <testcase name="testUpdateWithPatchMethod" file="/var/www/tests/Controller/UserControllerTest.php" line="43" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="3" time="0.016549"/>
+        <testcase name="testUpdateReturnsNotFoundForMissingId" file="/var/www/tests/Controller/UserControllerTest.php" line="63" class="App\Tests\Controller\UserControllerTest" classname="App.Tests.Controller.UserControllerTest" assertions="1" time="0.014526"/>
       </testsuite>
-      <testsuite name="App\Tests\Exception\ValidationExceptionTest" file="/var/www/tests/Exception/ValidationExceptionTest.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.000355">
-        <testcase name="testGetErrors" file="/var/www/tests/Exception/ValidationExceptionTest.php" line="10" class="App\Tests\Exception\ValidationExceptionTest" classname="App.Tests.Exception.ValidationExceptionTest" assertions="1" time="0.000225"/>
-        <testcase name="testMessage" file="/var/www/tests/Exception/ValidationExceptionTest.php" line="18" class="App\Tests\Exception\ValidationExceptionTest" classname="App.Tests.Exception.ValidationExceptionTest" assertions="1" time="0.000077"/>
+      <testsuite name="App\Tests\Exception\ValidationExceptionTest" file="/var/www/tests/Exception/ValidationExceptionTest.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.000254">
+        <testcase name="testGetErrors" file="/var/www/tests/Exception/ValidationExceptionTest.php" line="10" class="App\Tests\Exception\ValidationExceptionTest" classname="App.Tests.Exception.ValidationExceptionTest" assertions="1" time="0.000137"/>
+        <testcase name="testMessage" file="/var/www/tests/Exception/ValidationExceptionTest.php" line="18" class="App\Tests\Exception\ValidationExceptionTest" classname="App.Tests.Exception.ValidationExceptionTest" assertions="1" time="0.000064"/>
         <testcase name="testIsRuntimeException" file="/var/www/tests/Exception/ValidationExceptionTest.php" line="25" class="App\Tests\Exception\ValidationExceptionTest" classname="App.Tests.Exception.ValidationExceptionTest" assertions="1" time="0.000053"/>
       </testsuite>
-      <testsuite name="App\Tests\Service\LeadServiceTest" file="/var/www/tests/Service/LeadServiceTest.php" tests="20" assertions="33" errors="0" failures="0" skipped="0" time="0.004308">
-        <testcase name="testFindAllReturnsEmptyArray" file="/var/www/tests/Service/LeadServiceTest.php" line="45" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.001505"/>
-        <testcase name="testCreateWithEmptyBodyThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="56" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000104"/>
-        <testcase name="testCreateErrorsContainAllInvalidFields" file="/var/www/tests/Service/LeadServiceTest.php" line="63" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="7" time="0.000100"/>
-        <testcase name="testCreateWithInvalidUserIdThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="82" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000330"/>
-        <testcase name="testCreateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="89" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000094"/>
-        <testcase name="testCreateWithNegativeValueThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="96" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000078"/>
-        <testcase name="testCreateWithZeroValueThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="103" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000075"/>
-        <testcase name="testCreateWithUserNotFoundThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="114" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000197"/>
-        <testcase name="testCreateWithStageNotFoundThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="129" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000174"/>
-        <testcase name="testCreateCallsSaveAndReturnsArray" file="/var/www/tests/Service/LeadServiceTest.php" line="148" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="5" time="0.000684"/>
-        <testcase name="testUpdateThrowsEntityNotFoundExceptionForUnknownId" file="/var/www/tests/Service/LeadServiceTest.php" line="179" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000124"/>
-        <testcase name="testUpdateWithInvalidUserIdThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="215" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000117"/>
-        <testcase name="testUpdateWithInvalidStageIdThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="224" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000100"/>
-        <testcase name="testUpdateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="233" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000087"/>
-        <testcase name="testUpdateWithEmptyCompanyThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="242" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000084"/>
-        <testcase name="testUpdateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="251" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000083"/>
+      <testsuite name="App\Tests\Service\LeadServiceTest" file="/var/www/tests/Service/LeadServiceTest.php" tests="20" assertions="33" errors="0" failures="0" skipped="0" time="0.003763">
+        <testcase name="testFindAllReturnsEmptyArray" file="/var/www/tests/Service/LeadServiceTest.php" line="45" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.001655"/>
+        <testcase name="testCreateWithEmptyBodyThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="56" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000090"/>
+        <testcase name="testCreateErrorsContainAllInvalidFields" file="/var/www/tests/Service/LeadServiceTest.php" line="63" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="7" time="0.000066"/>
+        <testcase name="testCreateWithInvalidUserIdThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="82" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000081"/>
+        <testcase name="testCreateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="89" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000070"/>
+        <testcase name="testCreateWithNegativeValueThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="96" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000070"/>
+        <testcase name="testCreateWithZeroValueThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="103" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000068"/>
+        <testcase name="testCreateWithUserNotFoundThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="114" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000101"/>
+        <testcase name="testCreateWithStageNotFoundThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="129" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000086"/>
+        <testcase name="testCreateCallsSaveAndReturnsArray" file="/var/www/tests/Service/LeadServiceTest.php" line="148" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="5" time="0.000554"/>
+        <testcase name="testUpdateThrowsEntityNotFoundExceptionForUnknownId" file="/var/www/tests/Service/LeadServiceTest.php" line="179" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000109"/>
+        <testcase name="testUpdateWithInvalidUserIdThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="215" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000105"/>
+        <testcase name="testUpdateWithInvalidStageIdThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="224" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000096"/>
+        <testcase name="testUpdateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="233" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000092"/>
+        <testcase name="testUpdateWithEmptyCompanyThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="242" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000083"/>
+        <testcase name="testUpdateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="251" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000081"/>
         <testcase name="testUpdateWithEmptyPhoneThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="260" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000080"/>
-        <testcase name="testUpdateWithNegativeValueThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="269" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000091"/>
-        <testcase name="testUpdateCallsSaveAndReturnsUpdatedArray" file="/var/www/tests/Service/LeadServiceTest.php" line="282" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="3" time="0.000115"/>
+        <testcase name="testUpdateWithNegativeValueThrowsValidationException" file="/var/www/tests/Service/LeadServiceTest.php" line="269" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="1" time="0.000078"/>
+        <testcase name="testUpdateCallsSaveAndReturnsUpdatedArray" file="/var/www/tests/Service/LeadServiceTest.php" line="282" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="3" time="0.000110"/>
         <testcase name="testUpdateWithNoDataReturnsCurrentState" file="/var/www/tests/Service/LeadServiceTest.php" line="297" class="App\Tests\Service\LeadServiceTest" classname="App.Tests.Service.LeadServiceTest" assertions="2" time="0.000086"/>
       </testsuite>
-      <testsuite name="App\Tests\Service\StageServiceTest" file="/var/www/tests/Service/StageServiceTest.php" tests="11" assertions="14" errors="0" failures="0" skipped="0" time="0.001627">
-        <testcase name="testFindAllReturnsEmptyArray" file="/var/www/tests/Service/StageServiceTest.php" line="27" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000077"/>
-        <testcase name="testFindAllReturnsMappedArray" file="/var/www/tests/Service/StageServiceTest.php" line="34" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="2" time="0.000069"/>
-        <testcase name="testCreateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/StageServiceTest.php" line="50" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000058"/>
-        <testcase name="testCreateWithMissingNameThrowsValidationException" file="/var/www/tests/Service/StageServiceTest.php" line="57" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000055"/>
-        <testcase name="testCreateErrorContainsNameKey" file="/var/www/tests/Service/StageServiceTest.php" line="64" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000056"/>
-        <testcase name="testCreateCallsSaveAndReturnsArray" file="/var/www/tests/Service/StageServiceTest.php" line="80" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="2" time="0.000847"/>
-        <testcase name="testUpdateThrowsEntityNotFoundExceptionForUnknownId" file="/var/www/tests/Service/StageServiceTest.php" line="94" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000114"/>
-        <testcase name="testUpdateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/StageServiceTest.php" line="107" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000087"/>
-        <testcase name="testUpdateErrorContainsNameKey" file="/var/www/tests/Service/StageServiceTest.php" line="118" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000079"/>
-        <testcase name="testUpdateWithValidDataCallsSaveAndReturnsUpdatedArray" file="/var/www/tests/Service/StageServiceTest.php" line="138" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="2" time="0.000106"/>
-        <testcase name="testUpdateWithNoDataReturnsCurrentState" file="/var/www/tests/Service/StageServiceTest.php" line="152" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000079"/>
+      <testsuite name="App\Tests\Service\StageServiceTest" file="/var/www/tests/Service/StageServiceTest.php" tests="11" assertions="14" errors="0" failures="0" skipped="0" time="0.001277">
+        <testcase name="testFindAllReturnsEmptyArray" file="/var/www/tests/Service/StageServiceTest.php" line="27" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000083"/>
+        <testcase name="testFindAllReturnsMappedArray" file="/var/www/tests/Service/StageServiceTest.php" line="34" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="2" time="0.000073"/>
+        <testcase name="testCreateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/StageServiceTest.php" line="50" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000063"/>
+        <testcase name="testCreateWithMissingNameThrowsValidationException" file="/var/www/tests/Service/StageServiceTest.php" line="57" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000058"/>
+        <testcase name="testCreateErrorContainsNameKey" file="/var/www/tests/Service/StageServiceTest.php" line="64" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000058"/>
+        <testcase name="testCreateCallsSaveAndReturnsArray" file="/var/www/tests/Service/StageServiceTest.php" line="80" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="2" time="0.000507"/>
+        <testcase name="testUpdateThrowsEntityNotFoundExceptionForUnknownId" file="/var/www/tests/Service/StageServiceTest.php" line="94" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000101"/>
+        <testcase name="testUpdateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/StageServiceTest.php" line="107" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000084"/>
+        <testcase name="testUpdateErrorContainsNameKey" file="/var/www/tests/Service/StageServiceTest.php" line="118" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000076"/>
+        <testcase name="testUpdateWithValidDataCallsSaveAndReturnsUpdatedArray" file="/var/www/tests/Service/StageServiceTest.php" line="138" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="2" time="0.000096"/>
+        <testcase name="testUpdateWithNoDataReturnsCurrentState" file="/var/www/tests/Service/StageServiceTest.php" line="152" class="App\Tests\Service\StageServiceTest" classname="App.Tests.Service.StageServiceTest" assertions="1" time="0.000078"/>
       </testsuite>
-      <testsuite name="App\Tests\Service\UserServiceTest" file="/var/www/tests/Service/UserServiceTest.php" tests="15" assertions="23" errors="0" failures="0" skipped="0" time="0.147208">
-        <testcase name="testFindAllReturnsEmptyArray" file="/var/www/tests/Service/UserServiceTest.php" line="34" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000091"/>
-        <testcase name="testCreateWithEmptyBodyThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="45" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000068"/>
-        <testcase name="testCreateWithMissingNameThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="52" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000073"/>
-        <testcase name="testCreateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="59" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000058"/>
-        <testcase name="testCreateWithShortPasswordThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="66" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000056"/>
-        <testcase name="testCreateWithMissingRoleThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="73" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000056"/>
-        <testcase name="testCreateErrorsContainAllInvalidFields" file="/var/www/tests/Service/UserServiceTest.php" line="80" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="4" time="0.000056"/>
-        <testcase name="testCreateCallsSaveAndReturnsArray" file="/var/www/tests/Service/UserServiceTest.php" line="100" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="4" time="0.146113"/>
-        <testcase name="testUpdateThrowsEntityNotFoundExceptionForUnknownId" file="/var/www/tests/Service/UserServiceTest.php" line="116" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000154"/>
-        <testcase name="testUpdateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="129" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000086"/>
-        <testcase name="testUpdateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="138" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000077"/>
-        <testcase name="testUpdateWithShortPasswordThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="147" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000065"/>
-        <testcase name="testUpdateWithEmptyRoleThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="156" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000063"/>
-        <testcase name="testUpdateCallsSaveAndReturnsUpdatedArray" file="/var/www/tests/Service/UserServiceTest.php" line="169" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="3" time="0.000110"/>
-        <testcase name="testUpdateWithNoDataReturnsCurrentState" file="/var/www/tests/Service/UserServiceTest.php" line="187" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000081"/>
+      <testsuite name="App\Tests\Service\UserServiceTest" file="/var/www/tests/Service/UserServiceTest.php" tests="15" assertions="23" errors="0" failures="0" skipped="0" time="0.147987">
+        <testcase name="testFindAllReturnsEmptyArray" file="/var/www/tests/Service/UserServiceTest.php" line="34" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000081"/>
+        <testcase name="testCreateWithEmptyBodyThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="45" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000067"/>
+        <testcase name="testCreateWithMissingNameThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="52" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000075"/>
+        <testcase name="testCreateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="59" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000062"/>
+        <testcase name="testCreateWithShortPasswordThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="66" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000061"/>
+        <testcase name="testCreateWithMissingRoleThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="73" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000062"/>
+        <testcase name="testCreateErrorsContainAllInvalidFields" file="/var/www/tests/Service/UserServiceTest.php" line="80" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="4" time="0.000062"/>
+        <testcase name="testCreateCallsSaveAndReturnsArray" file="/var/www/tests/Service/UserServiceTest.php" line="100" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="4" time="0.146848"/>
+        <testcase name="testUpdateThrowsEntityNotFoundExceptionForUnknownId" file="/var/www/tests/Service/UserServiceTest.php" line="116" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000164"/>
+        <testcase name="testUpdateWithEmptyNameThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="129" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000101"/>
+        <testcase name="testUpdateWithInvalidEmailThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="138" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000088"/>
+        <testcase name="testUpdateWithShortPasswordThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="147" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000067"/>
+        <testcase name="testUpdateWithEmptyRoleThrowsValidationException" file="/var/www/tests/Service/UserServiceTest.php" line="156" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000070"/>
+        <testcase name="testUpdateCallsSaveAndReturnsUpdatedArray" file="/var/www/tests/Service/UserServiceTest.php" line="169" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="3" time="0.000101"/>
+        <testcase name="testUpdateWithNoDataReturnsCurrentState" file="/var/www/tests/Service/UserServiceTest.php" line="187" class="App\Tests\Service\UserServiceTest" classname="App.Tests.Service.UserServiceTest" assertions="1" time="0.000077"/>
       </testsuite>
     </testsuite>
-    <testsuite name="Integration" tests="30" assertions="0" errors="30" failures="0" skipped="0" time="0.000000">
-      <testsuite name="App\Tests\Integration\LeadIntegrationTest" file="/var/www/tests/Integration/LeadIntegrationTest.php" tests="11" assertions="0" errors="11" failures="0" skipped="0" time="0.000000">
-        <testcase name="testGetReturnsNotFoundWhenTableIsEmpty" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="49" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testGetReturnsNotFoundWhenTableIsEmpty
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostCreatesLeadAndReturns201" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="60" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPostCreatesLeadAndReturns201
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithoutBodyReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="71" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPostWithoutBodyReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithInvalidEmailReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="78" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPostWithInvalidEmailReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithNegativeValueReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="86" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPostWithNegativeValueReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithInvalidUserIdReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="94" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPostWithInvalidUserIdReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithAllFieldsMissingReturnsAllErrors" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="102" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPostWithAllFieldsMissingReturnsAllErrors
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchUpdatesLeadAndReturns200" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="121" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPatchUpdatesLeadAndReturns200
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchWithInvalidEmailReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="144" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testPatchWithInvalidEmailReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testLeadIsPersistableViaEntityManager" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="167" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testLeadIsPersistableViaEntityManager
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testLeadForeignKeysReferenceCorrectEntities" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="191" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\LeadIntegrationTest::testLeadForeignKeysReferenceCorrectEntities
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/tests/Integration/LeadIntegrationTest.php:16
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
+    <testsuite name="Integration" tests="30" assertions="73" errors="0" failures="0" skipped="0" time="0.601295">
+      <testsuite name="App\Tests\Integration\LeadIntegrationTest" file="/var/www/tests/Integration/LeadIntegrationTest.php" tests="11" assertions="33" errors="0" failures="0" skipped="0" time="0.180338">
+        <testcase name="testGetReturnsNotFoundWhenTableIsEmpty" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="49" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="1" time="0.026705"/>
+        <testcase name="testPostCreatesLeadAndReturns201" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="60" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="5" time="0.018498"/>
+        <testcase name="testPostWithoutBodyReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="71" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="1" time="0.016021"/>
+        <testcase name="testPostWithInvalidEmailReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="78" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="2" time="0.013384"/>
+        <testcase name="testPostWithNegativeValueReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="86" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="2" time="0.012190"/>
+        <testcase name="testPostWithInvalidUserIdReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="94" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="2" time="0.013826"/>
+        <testcase name="testPostWithAllFieldsMissingReturnsAllErrors" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="102" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="8" time="0.014038"/>
+        <testcase name="testPatchUpdatesLeadAndReturns200" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="121" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="3" time="0.018492"/>
+        <testcase name="testPatchWithInvalidEmailReturns422" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="144" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="2" time="0.017702"/>
+        <testcase name="testLeadIsPersistableViaEntityManager" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="167" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="5" time="0.016134"/>
+        <testcase name="testLeadForeignKeysReferenceCorrectEntities" file="/var/www/tests/Integration/LeadIntegrationTest.php" line="191" class="App\Tests\Integration\LeadIntegrationTest" classname="App.Tests.Integration.LeadIntegrationTest" assertions="2" time="0.013348"/>
       </testsuite>
-      <testsuite name="App\Tests\Integration\StageIntegrationTest" file="/var/www/tests/Integration/StageIntegrationTest.php" tests="9" assertions="0" errors="9" failures="0" skipped="0" time="0.000000">
-        <testcase name="testGetReturnsNotFoundWhenTableIsEmpty" file="/var/www/tests/Integration/StageIntegrationTest.php" line="13" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testGetReturnsNotFoundWhenTableIsEmpty
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostCreatesStageAndReturns201" file="/var/www/tests/Integration/StageIntegrationTest.php" line="24" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testPostCreatesStageAndReturns201
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithoutBodyReturns422" file="/var/www/tests/Integration/StageIntegrationTest.php" line="32" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testPostWithoutBodyReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithEmptyNameReturns422WithErrorKey" file="/var/www/tests/Integration/StageIntegrationTest.php" line="39" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testPostWithEmptyNameReturns422WithErrorKey
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchUpdatesStageAndReturns200" file="/var/www/tests/Integration/StageIntegrationTest.php" line="52" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testPatchUpdatesStageAndReturns200
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchWithEmptyNameReturns422" file="/var/www/tests/Integration/StageIntegrationTest.php" line="65" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testPatchWithEmptyNameReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchWithNoBodyReturns200" file="/var/www/tests/Integration/StageIntegrationTest.php" line="78" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testPatchWithNoBodyReturns200
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testStageIsPersistableViaEntityManager" file="/var/www/tests/Integration/StageIntegrationTest.php" line="94" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testStageIsPersistableViaEntityManager
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testTruncateResetsAutoIncrement" file="/var/www/tests/Integration/StageIntegrationTest.php" line="109" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\StageIntegrationTest::testTruncateResetsAutoIncrement
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
+      <testsuite name="App\Tests\Integration\StageIntegrationTest" file="/var/www/tests/Integration/StageIntegrationTest.php" tests="9" assertions="15" errors="0" failures="0" skipped="0" time="0.133692">
+        <testcase name="testGetReturnsNotFoundWhenTableIsEmpty" file="/var/www/tests/Integration/StageIntegrationTest.php" line="13" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="1" time="0.015140"/>
+        <testcase name="testPostCreatesStageAndReturns201" file="/var/www/tests/Integration/StageIntegrationTest.php" line="24" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="2" time="0.014446"/>
+        <testcase name="testPostWithoutBodyReturns422" file="/var/www/tests/Integration/StageIntegrationTest.php" line="32" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="1" time="0.011668"/>
+        <testcase name="testPostWithEmptyNameReturns422WithErrorKey" file="/var/www/tests/Integration/StageIntegrationTest.php" line="39" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="3" time="0.014049"/>
+        <testcase name="testPatchUpdatesStageAndReturns200" file="/var/www/tests/Integration/StageIntegrationTest.php" line="52" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="2" time="0.014608"/>
+        <testcase name="testPatchWithEmptyNameReturns422" file="/var/www/tests/Integration/StageIntegrationTest.php" line="65" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="2" time="0.016749"/>
+        <testcase name="testPatchWithNoBodyReturns200" file="/var/www/tests/Integration/StageIntegrationTest.php" line="78" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="1" time="0.013483"/>
+        <testcase name="testStageIsPersistableViaEntityManager" file="/var/www/tests/Integration/StageIntegrationTest.php" line="94" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="2" time="0.015453"/>
+        <testcase name="testTruncateResetsAutoIncrement" file="/var/www/tests/Integration/StageIntegrationTest.php" line="109" class="App\Tests\Integration\StageIntegrationTest" classname="App.Tests.Integration.StageIntegrationTest" assertions="1" time="0.018097"/>
       </testsuite>
-      <testsuite name="App\Tests\Integration\UserIntegrationTest" file="/var/www/tests/Integration/UserIntegrationTest.php" tests="10" assertions="0" errors="10" failures="0" skipped="0" time="0.000000">
-        <testcase name="testGetReturnsNotFoundWhenTableIsEmpty" file="/var/www/tests/Integration/UserIntegrationTest.php" line="20" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testGetReturnsNotFoundWhenTableIsEmpty
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostCreatesUserAndReturns201" file="/var/www/tests/Integration/UserIntegrationTest.php" line="31" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPostCreatesUserAndReturns201
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithoutBodyReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="41" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPostWithoutBodyReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithInvalidEmailReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="48" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPostWithInvalidEmailReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithShortPasswordReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="56" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPostWithShortPasswordReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPostWithAllFieldsMissingReturnsAllErrors" file="/var/www/tests/Integration/UserIntegrationTest.php" line="64" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPostWithAllFieldsMissingReturnsAllErrors
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchUpdatesUserAndReturns200" file="/var/www/tests/Integration/UserIntegrationTest.php" line="79" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPatchUpdatesUserAndReturns200
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchWithInvalidEmailReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="99" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPatchWithInvalidEmailReturns422
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testPatchWithNoBodyReturns200" file="/var/www/tests/Integration/UserIntegrationTest.php" line="115" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testPatchWithNoBodyReturns200
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
-        <testcase name="testUserIsPersistableViaEntityManager" file="/var/www/tests/Integration/UserIntegrationTest.php" line="134" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="0" time="0.000000">
-          <error type="Doctrine\DBAL\Exception\ConnectionException">App\Tests\Integration\UserIntegrationTest::testUserIsPersistableViaEntityManager
-Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.26.0.2), port 5432 failed: FATAL:  database "leadforyou_test" does not exist
-
-/var/www/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
-/var/www/vendor/doctrine/dbal/src/Connection.php:1460
-/var/www/vendor/doctrine/dbal/src/Connection.php:1402
-/var/www/vendor/doctrine/dbal/src/Connection.php:224
-/var/www/vendor/doctrine/dbal/src/Connection.php:895
-/var/www/tests/Integration/IntegrationTestCase.php:25
-/var/www/tests/Integration/IntegrationTestCase.php:19
-/var/www/vendor/phpunit/phpunit/phpunit:104</error>
-        </testcase>
+      <testsuite name="App\Tests\Integration\UserIntegrationTest" file="/var/www/tests/Integration/UserIntegrationTest.php" tests="10" assertions="25" errors="0" failures="0" skipped="0" time="0.287265">
+        <testcase name="testGetReturnsNotFoundWhenTableIsEmpty" file="/var/www/tests/Integration/UserIntegrationTest.php" line="20" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="1" time="0.012061"/>
+        <testcase name="testPostCreatesUserAndReturns201" file="/var/www/tests/Integration/UserIntegrationTest.php" line="31" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="4" time="0.165904"/>
+        <testcase name="testPostWithoutBodyReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="41" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="1" time="0.012448"/>
+        <testcase name="testPostWithInvalidEmailReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="48" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="2" time="0.014056"/>
+        <testcase name="testPostWithShortPasswordReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="56" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="2" time="0.012066"/>
+        <testcase name="testPostWithAllFieldsMissingReturnsAllErrors" file="/var/www/tests/Integration/UserIntegrationTest.php" line="64" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="5" time="0.014735"/>
+        <testcase name="testPatchUpdatesUserAndReturns200" file="/var/www/tests/Integration/UserIntegrationTest.php" line="79" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="3" time="0.013399"/>
+        <testcase name="testPatchWithInvalidEmailReturns422" file="/var/www/tests/Integration/UserIntegrationTest.php" line="99" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="2" time="0.015835"/>
+        <testcase name="testPatchWithNoBodyReturns200" file="/var/www/tests/Integration/UserIntegrationTest.php" line="115" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="1" time="0.012786"/>
+        <testcase name="testUserIsPersistableViaEntityManager" file="/var/www/tests/Integration/UserIntegrationTest.php" line="134" class="App\Tests\Integration\UserIntegrationTest" classname="App.Tests.Integration.UserIntegrationTest" assertions="4" time="0.013975"/>
       </testsuite>
     </testsuite>
   </testsuite>
