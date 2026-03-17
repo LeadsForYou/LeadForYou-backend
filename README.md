@@ -1,7 +1,7 @@
-```
+
 [![codecov](https://codecov.io/gh/nome-da-org/nome-do-repo/branch/main/graph/badge.svg)](https://codecov.io/gh/nome-da-org/nome-do-repo)
 
-```
+
 
 # LeadForYou
 
