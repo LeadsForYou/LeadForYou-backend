@@ -1,0 +1,26 @@
+name: Code Style
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**.php'
+
+jobs:
+  code-style:
+    name: Run PHP-CS-Fixer (PHP 8.3)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: php-cs-fixer
+          coverage: none
+
+      - name: Run PHP-CS-Fixer
+        run: php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff -vvv

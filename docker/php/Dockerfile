@@ -23,7 +23,9 @@ RUN rm -rf /var/www/html && apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_pgsql pgsql zip mbstring exif \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
