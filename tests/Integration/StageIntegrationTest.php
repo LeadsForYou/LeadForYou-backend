@@ -17,6 +17,20 @@ class StageIntegrationTest extends IntegrationTestCase
         $this->assertSame(404, $this->statusCode());
     }
 
+    public function testGetReturnsStagesWhenDataExists(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $this->em->persist($stage);
+        $this->em->flush();
+
+        $response = $this->json('GET', '/stage');
+
+        $this->assertSame(200, $this->statusCode());
+        $this->assertCount(1, $response['data']);
+        $this->assertSame('Prospecção', $response['data'][0]['name']);
+    }
+
     // -------------------------------------------------------------------------
     // POST /stage
     // -------------------------------------------------------------------------
@@ -85,6 +99,60 @@ class StageIntegrationTest extends IntegrationTestCase
         $this->json('PATCH', "/stage/{$stage->getId()}");
 
         $this->assertSame(200, $this->statusCode());
+    }
+
+    // -------------------------------------------------------------------------
+    // DELETE /stage/{id}
+    // -------------------------------------------------------------------------
+
+    public function testDeleteSoftDeletesStageAndReturns204(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $this->em->persist($stage);
+        $this->em->flush();
+
+        $this->json('DELETE', "/stage/{$stage->getId()}");
+
+        $this->assertSame(204, $this->statusCode());
+
+        $this->em->clear();
+        $found = $this->em->find(Stage::class, $stage->getId());
+        $this->assertNotNull($found->getDeletedAt());
+    }
+
+    public function testDeleteReturnsNotFoundForMissingId(): void
+    {
+        $this->json('DELETE', '/stage/99999');
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeletedStageIsExcludedFromList(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $this->em->persist($stage);
+        $this->em->flush();
+
+        $this->json('DELETE', "/stage/{$stage->getId()}");
+        $this->assertSame(204, $this->statusCode());
+
+        $this->json('GET', '/stage');
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeleteAlreadyDeletedStageReturnsNotFound(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $stage->setDeletedAt(new \DateTimeImmutable());
+        $this->em->persist($stage);
+        $this->em->flush();
+
+        $this->json('DELETE', "/stage/{$stage->getId()}");
+
+        $this->assertSame(404, $this->statusCode());
     }
 
     // -------------------------------------------------------------------------

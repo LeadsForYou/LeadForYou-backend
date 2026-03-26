@@ -18,6 +18,14 @@ class StageRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
+    public function findAllActive(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(Stage $stage): void
     {
         $this->getEntityManager()->persist($stage);

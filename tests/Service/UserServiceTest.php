@@ -33,9 +33,26 @@ class UserServiceTest extends TestCase
 
     public function testFindAllReturnsEmptyArray(): void
     {
-        $this->repo->method('findAll')->willReturn([]);
+        $this->repo->method('findAllActive')->willReturn([]);
 
         $this->assertSame([], $this->service->findAll());
+    }
+
+    public function testFindAllReturnsMappedArray(): void
+    {
+        $user = new User();
+        $user->setName('João Silva');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $this->repo->method('findAllActive')->willReturn([$user]);
+
+        $result = $this->service->findAll();
+
+        $this->assertCount(1, $result);
+        $this->assertSame('João Silva', $result[0]['name']);
+        $this->assertSame('joao@email.com', $result[0]['email']);
+        $this->assertSame('admin', $result[0]['role']);
     }
 
     // -------------------------------------------------------------------------
@@ -196,5 +213,54 @@ class UserServiceTest extends TestCase
         $result = $this->service->update(1, []);
 
         $this->assertSame('João', $result['name']);
+    }
+
+    // -------------------------------------------------------------------------
+    // delete – not found
+    // -------------------------------------------------------------------------
+
+    public function testDeleteThrowsEntityNotFoundExceptionForUnknownId(): void
+    {
+        $this->repo->method('findById')->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(99);
+    }
+
+    public function testDeleteThrowsEntityNotFoundExceptionForAlreadyDeletedUser(): void
+    {
+        $user = new User();
+        $user->setName('João');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $user->setDeletedAt(new \DateTimeImmutable());
+        $this->repo->method('findById')->willReturn($user);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(1);
+    }
+
+    // -------------------------------------------------------------------------
+    // delete – happy path
+    // -------------------------------------------------------------------------
+
+    public function testDeleteSetsDeletedAtAndCallsSave(): void
+    {
+        $user = new User();
+        $user->setName('João');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+
+        $repo = $this->createMock(UserRepository::class);
+        $repo->method('findById')->willReturn($user);
+        $repo->expects($this->once())->method('save');
+
+        (new UserService($repo))->delete(1);
+
+        $this->assertNotNull($user->getDeletedAt());
     }
 }

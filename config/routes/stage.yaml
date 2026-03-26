@@ -12,3 +12,8 @@ stage_update:
   path: /stage/{id}
   controller: App\Controller\StageController::update
   methods: [PATCH]
+
+stage_delete:
+  path: /stage/{id}
+  controller: App\Controller\StageController::delete
+  methods: [DELETE]

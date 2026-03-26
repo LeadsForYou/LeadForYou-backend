@@ -50,4 +50,15 @@ final class LeadController extends AbstractController
             return ApiResponse::validationError($e->getErrors());
         }
     }
+
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $this->leadService->delete($id);
+
+            return ApiResponse::deleted();
+        } catch (EntityNotFoundException $e) {
+            return ApiResponse::notFound($e->getMessage());
+        }
+    }
 }

@@ -18,6 +18,14 @@ class UserRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
+    public function findAllActive(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(User $user): void
     {
         $this->getEntityManager()->persist($user);

@@ -16,6 +16,23 @@ class UserControllerTest extends IntegrationTestCase
         $this->assertArrayHasKey('message', $data);
     }
 
+    public function testListReturnsUsersWhenDataExists(): void
+    {
+        $user = new User();
+        $user->setName('João Silva');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $data = $this->json('GET', '/user');
+
+        $this->assertSame(200, $this->statusCode());
+        $this->assertCount(1, $data['data']);
+        $this->assertSame('João Silva', $data['data'][0]['name']);
+    }
+
     public function testCreateReturnsValidationErrorWithoutBody(): void
     {
         $this->json('POST', '/user');
@@ -63,6 +80,28 @@ class UserControllerTest extends IntegrationTestCase
     public function testUpdateReturnsNotFoundForMissingId(): void
     {
         $this->json('PATCH', '/user/99999', ['name' => 'X']);
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeleteReturnsNoContent(): void
+    {
+        $user = new User();
+        $user->setName('João Silva');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $this->json('DELETE', "/user/{$user->getId()}");
+
+        $this->assertSame(204, $this->statusCode());
+    }
+
+    public function testDeleteReturnsNotFoundForMissingId(): void
+    {
+        $this->json('DELETE', '/user/99999');
 
         $this->assertSame(404, $this->statusCode());
     }

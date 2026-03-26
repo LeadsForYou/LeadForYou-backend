@@ -53,6 +53,27 @@ class LeadIntegrationTest extends IntegrationTestCase
         $this->assertSame(404, $this->statusCode());
     }
 
+    public function testGetReturnsLeadsWhenDataExists(): void
+    {
+        $lead = new Lead();
+        $lead->setUser($this->user);
+        $lead->setStage($this->stage);
+        $lead->setName('João');
+        $lead->setCompany('Empresa');
+        $lead->setEmail('joao@email.com');
+        $lead->setPhone('85999999999');
+        $lead->setValue('1000.00');
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $response = $this->json('GET', '/lead');
+
+        $this->assertSame(200, $this->statusCode());
+        $this->assertCount(1, $response['data']);
+        $this->assertSame('João', $response['data'][0]['name']);
+        $this->assertSame('Empresa', $response['data'][0]['company']);
+    }
+
     // -------------------------------------------------------------------------
     // POST /lead
     // -------------------------------------------------------------------------
@@ -187,6 +208,82 @@ class LeadIntegrationTest extends IntegrationTestCase
         $this->assertSame($this->stage->getId(), $found->getStage()->getId());
         $this->assertSame($this->user->getId(), $found->getUser()->getId());
     }
+
+    // -------------------------------------------------------------------------
+    // DELETE /lead/{id}
+    // -------------------------------------------------------------------------
+
+    public function testDeleteSoftDeletesLeadAndReturns204(): void
+    {
+        $lead = new Lead();
+        $lead->setUser($this->user);
+        $lead->setStage($this->stage);
+        $lead->setName('João');
+        $lead->setCompany('Empresa');
+        $lead->setEmail('joao@email.com');
+        $lead->setPhone('85999999999');
+        $lead->setValue('1000.00');
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $this->json('DELETE', "/lead/{$lead->getId()}");
+
+        $this->assertSame(204, $this->statusCode());
+
+        $this->em->clear();
+        $found = $this->em->find(Lead::class, $lead->getId());
+        $this->assertNotNull($found->getDeletedAt());
+    }
+
+    public function testDeleteReturnsNotFoundForMissingId(): void
+    {
+        $this->json('DELETE', '/lead/99999');
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeletedLeadIsExcludedFromList(): void
+    {
+        $lead = new Lead();
+        $lead->setUser($this->user);
+        $lead->setStage($this->stage);
+        $lead->setName('João');
+        $lead->setCompany('Empresa');
+        $lead->setEmail('joao@email.com');
+        $lead->setPhone('85999999999');
+        $lead->setValue('1000.00');
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $this->json('DELETE', "/lead/{$lead->getId()}");
+        $this->assertSame(204, $this->statusCode());
+
+        $this->json('GET', '/lead');
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeleteAlreadyDeletedLeadReturnsNotFound(): void
+    {
+        $lead = new Lead();
+        $lead->setUser($this->user);
+        $lead->setStage($this->stage);
+        $lead->setName('João');
+        $lead->setCompany('Empresa');
+        $lead->setEmail('joao@email.com');
+        $lead->setPhone('85999999999');
+        $lead->setValue('1000.00');
+        $lead->setDeletedAt(new \DateTimeImmutable());
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $this->json('DELETE', "/lead/{$lead->getId()}");
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    // -------------------------------------------------------------------------
+    // Database state
+    // -------------------------------------------------------------------------
 
     public function testLeadForeignKeysReferenceCorrectEntities(): void
     {

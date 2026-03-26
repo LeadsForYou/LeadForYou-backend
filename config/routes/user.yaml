@@ -12,3 +12,8 @@ user_update:
   path: /user/{id}
   controller: App\Controller\UserController::update
   methods: [PATCH]
+
+user_delete:
+  path: /user/{id}
+  controller: App\Controller\UserController::delete
+  methods: [DELETE]

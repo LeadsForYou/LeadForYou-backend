@@ -39,6 +39,26 @@ class LeadControllerTest extends IntegrationTestCase
         $this->assertArrayHasKey('message', $data);
     }
 
+    public function testListReturnsLeadsWhenDataExists(): void
+    {
+        $lead = new Lead();
+        $lead->setUser($this->user);
+        $lead->setStage($this->stage);
+        $lead->setName('João');
+        $lead->setCompany('Empresa');
+        $lead->setEmail('joao@email.com');
+        $lead->setPhone('85999999999');
+        $lead->setValue('1000.00');
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $data = $this->json('GET', '/lead');
+
+        $this->assertSame(200, $this->statusCode());
+        $this->assertCount(1, $data['data']);
+        $this->assertSame('João', $data['data'][0]['name']);
+    }
+
     public function testCreateReturnsValidationErrorWithoutBody(): void
     {
         $this->json('POST', '/lead');
@@ -93,6 +113,31 @@ class LeadControllerTest extends IntegrationTestCase
     public function testUpdateReturnsNotFoundForMissingId(): void
     {
         $this->json('PATCH', '/lead/99999', ['name' => 'X']);
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeleteReturnsNoContent(): void
+    {
+        $lead = new Lead();
+        $lead->setUser($this->user);
+        $lead->setStage($this->stage);
+        $lead->setName('João');
+        $lead->setCompany('Empresa');
+        $lead->setEmail('joao@email.com');
+        $lead->setPhone('85999999999');
+        $lead->setValue('1000.00');
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $this->json('DELETE', "/lead/{$lead->getId()}");
+
+        $this->assertSame(204, $this->statusCode());
+    }
+
+    public function testDeleteReturnsNotFoundForMissingId(): void
+    {
+        $this->json('DELETE', '/lead/99999');
 
         $this->assertSame(404, $this->statusCode());
     }

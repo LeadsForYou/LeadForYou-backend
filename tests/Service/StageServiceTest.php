@@ -26,7 +26,7 @@ class StageServiceTest extends TestCase
 
     public function testFindAllReturnsEmptyArray(): void
     {
-        $this->repo->method('findAll')->willReturn([]);
+        $this->repo->method('findAllActive')->willReturn([]);
 
         $this->assertSame([], $this->service->findAll());
     }
@@ -35,7 +35,7 @@ class StageServiceTest extends TestCase
     {
         $stage = new Stage();
         $stage->setName('Prospecção');
-        $this->repo->method('findAll')->willReturn([$stage]);
+        $this->repo->method('findAllActive')->willReturn([$stage]);
 
         $result = $this->service->findAll();
 
@@ -158,5 +158,48 @@ class StageServiceTest extends TestCase
         $result = $this->service->update(1, []);
 
         $this->assertSame('Prospecção', $result['name']);
+    }
+
+    // -------------------------------------------------------------------------
+    // delete – not found
+    // -------------------------------------------------------------------------
+
+    public function testDeleteThrowsEntityNotFoundExceptionForUnknownId(): void
+    {
+        $this->repo->method('findById')->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(99);
+    }
+
+    public function testDeleteThrowsEntityNotFoundExceptionForAlreadyDeletedStage(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $stage->setDeletedAt(new \DateTimeImmutable());
+        $this->repo->method('findById')->willReturn($stage);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(1);
+    }
+
+    // -------------------------------------------------------------------------
+    // delete – happy path
+    // -------------------------------------------------------------------------
+
+    public function testDeleteSetsDeletedAtAndCallsSave(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+
+        $repo = $this->createMock(StageRepository::class);
+        $repo->method('findById')->willReturn($stage);
+        $repo->expects($this->once())->method('save');
+
+        (new StageService($repo))->delete(1);
+
+        $this->assertNotNull($stage->getDeletedAt());
     }
 }

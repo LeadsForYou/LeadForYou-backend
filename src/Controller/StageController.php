@@ -50,4 +50,15 @@ final class StageController extends AbstractController
             return ApiResponse::validationError($e->getErrors());
         }
     }
+
+    public function delete(int $id): JsonResponse
+    {
+        try {
+            $this->stageService->delete($id);
+
+            return ApiResponse::deleted();
+        } catch (EntityNotFoundException $e) {
+            return ApiResponse::notFound($e->getMessage());
+        }
+    }
 }

@@ -15,7 +15,7 @@ class UserService
 
     public function findAll(): array
     {
-        return array_map(fn (User $user) => $this->toArray($user), $this->repo->findAll());
+        return array_map(fn (User $user) => $this->toArray($user), $this->repo->findAllActive());
     }
 
     public function create(array $data): array
@@ -72,6 +72,18 @@ class UserService
         $this->repo->save($user);
 
         return $this->toArray($user);
+    }
+
+    public function delete(int $id): void
+    {
+        $user = $this->repo->findById($id);
+
+        if (null === $user || null !== $user->getDeletedAt()) {
+            throw new EntityNotFoundException("Usuário {$id} não encontrado.");
+        }
+
+        $user->setDeletedAt(new \DateTimeImmutable());
+        $this->repo->save($user);
     }
 
     private function toArray(User $user): array

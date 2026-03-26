@@ -24,6 +24,24 @@ class UserIntegrationTest extends IntegrationTestCase
         $this->assertSame(404, $this->statusCode());
     }
 
+    public function testGetReturnsUsersWhenDataExists(): void
+    {
+        $user = new User();
+        $user->setName('João Silva');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $response = $this->json('GET', '/user');
+
+        $this->assertSame(200, $this->statusCode());
+        $this->assertCount(1, $response['data']);
+        $this->assertSame('João Silva', $response['data'][0]['name']);
+        $this->assertSame('joao@email.com', $response['data'][0]['email']);
+    }
+
     // -------------------------------------------------------------------------
     // POST /user
     // -------------------------------------------------------------------------
@@ -125,6 +143,69 @@ class UserIntegrationTest extends IntegrationTestCase
         $this->json('PATCH', "/user/{$user->getId()}");
 
         $this->assertSame(200, $this->statusCode());
+    }
+
+    // -------------------------------------------------------------------------
+    // DELETE /user/{id}
+    // -------------------------------------------------------------------------
+
+    public function testDeleteSoftDeletesUserAndReturns204(): void
+    {
+        $user = new User();
+        $user->setName('João');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $this->json('DELETE', "/user/{$user->getId()}");
+
+        $this->assertSame(204, $this->statusCode());
+
+        $this->em->clear();
+        $found = $this->em->find(User::class, $user->getId());
+        $this->assertNotNull($found->getDeletedAt());
+    }
+
+    public function testDeleteReturnsNotFoundForMissingId(): void
+    {
+        $this->json('DELETE', '/user/99999');
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeletedUserIsExcludedFromList(): void
+    {
+        $user = new User();
+        $user->setName('João');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $this->json('DELETE', "/user/{$user->getId()}");
+        $this->assertSame(204, $this->statusCode());
+
+        $this->json('GET', '/user');
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeleteAlreadyDeletedUserReturnsNotFound(): void
+    {
+        $user = new User();
+        $user->setName('João');
+        $user->setEmail('joao@email.com');
+        $user->setPassword('hashed');
+        $user->setRole('admin');
+        $user->setDeletedAt(new \DateTimeImmutable());
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $this->json('DELETE', "/user/{$user->getId()}");
+
+        $this->assertSame(404, $this->statusCode());
     }
 
     // -------------------------------------------------------------------------

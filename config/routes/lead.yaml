@@ -12,3 +12,8 @@ lead_update:
   path: /lead/{id}
   controller: App\Controller\LeadController::update
   methods: [PATCH]
+
+lead_delete:
+  path: /lead/{id}
+  controller: App\Controller\LeadController::delete
+  methods: [DELETE]

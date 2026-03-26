@@ -16,6 +16,20 @@ class StageControllerTest extends IntegrationTestCase
         $this->assertArrayHasKey('message', $data);
     }
 
+    public function testListReturnsStagesWhenDataExists(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $this->em->persist($stage);
+        $this->em->flush();
+
+        $data = $this->json('GET', '/stage');
+
+        $this->assertSame(200, $this->statusCode());
+        $this->assertCount(1, $data['data']);
+        $this->assertSame('Prospecção', $data['data'][0]['name']);
+    }
+
     public function testCreateReturnsValidationErrorWithoutBody(): void
     {
         $this->json('POST', '/stage');
@@ -49,6 +63,25 @@ class StageControllerTest extends IntegrationTestCase
     public function testUpdateReturnsNotFoundForMissingId(): void
     {
         $this->json('PATCH', '/stage/99999', ['name' => 'X']);
+
+        $this->assertSame(404, $this->statusCode());
+    }
+
+    public function testDeleteReturnsNoContent(): void
+    {
+        $stage = new Stage();
+        $stage->setName('Prospecção');
+        $this->em->persist($stage);
+        $this->em->flush();
+
+        $this->json('DELETE', "/stage/{$stage->getId()}");
+
+        $this->assertSame(204, $this->statusCode());
+    }
+
+    public function testDeleteReturnsNotFoundForMissingId(): void
+    {
+        $this->json('DELETE', '/stage/99999');
 
         $this->assertSame(404, $this->statusCode());
     }

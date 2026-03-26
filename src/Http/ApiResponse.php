@@ -21,6 +21,11 @@ class ApiResponse
         return new JsonResponse(['message' => $message], JsonResponse::HTTP_NOT_FOUND);
     }
 
+    public static function deleted(): JsonResponse
+    {
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    }
+
     public static function validationError(array $errors): JsonResponse
     {
         return new JsonResponse(

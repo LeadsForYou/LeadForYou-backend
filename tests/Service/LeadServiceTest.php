@@ -44,9 +44,23 @@ class LeadServiceTest extends TestCase
 
     public function testFindAllReturnsEmptyArray(): void
     {
-        $this->leadRepo->method('findAll')->willReturn([]);
+        $this->leadRepo->method('findAllActive')->willReturn([]);
 
         $this->assertSame([], $this->service->findAll());
+    }
+
+    public function testFindAllReturnsMappedArray(): void
+    {
+        $lead = $this->existingLead();
+        $this->leadRepo->method('findAllActive')->willReturn([$lead]);
+
+        $result = $this->service->findAll();
+
+        $this->assertCount(1, $result);
+        $this->assertSame('João', $result[0]['name']);
+        $this->assertSame('Corp', $result[0]['company']);
+        $this->assertSame('j@j.com', $result[0]['email']);
+        $this->assertSame('100.00', $result[0]['value']);
     }
 
     // -------------------------------------------------------------------------
@@ -303,5 +317,46 @@ class LeadServiceTest extends TestCase
 
         $this->assertSame('João', $result['name']);
         $this->assertSame('100.00', $result['value']);
+    }
+
+    // -------------------------------------------------------------------------
+    // delete – not found
+    // -------------------------------------------------------------------------
+
+    public function testDeleteThrowsEntityNotFoundExceptionForUnknownId(): void
+    {
+        $this->leadRepo->method('findById')->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(99);
+    }
+
+    public function testDeleteThrowsEntityNotFoundExceptionForAlreadyDeletedLead(): void
+    {
+        $lead = $this->existingLead();
+        $lead->setDeletedAt(new \DateTimeImmutable());
+        $this->leadRepo->method('findById')->willReturn($lead);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(1);
+    }
+
+    // -------------------------------------------------------------------------
+    // delete – happy path
+    // -------------------------------------------------------------------------
+
+    public function testDeleteSetsDeletedAtAndCallsSave(): void
+    {
+        $lead = $this->existingLead();
+
+        $leadRepo = $this->createMock(LeadRepository::class);
+        $leadRepo->method('findById')->willReturn($lead);
+        $leadRepo->expects($this->once())->method('save');
+
+        (new LeadService($leadRepo, $this->userRepo, $this->stageRepo))->delete(1);
+
+        $this->assertNotNull($lead->getDeletedAt());
     }
 }

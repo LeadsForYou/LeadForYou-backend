@@ -15,7 +15,7 @@ class StageService
 
     public function findAll(): array
     {
-        return array_map(fn (Stage $s) => $this->toArray($s), $this->repo->findAll());
+        return array_map(fn (Stage $s) => $this->toArray($s), $this->repo->findAllActive());
     }
 
     public function create(array $data): array
@@ -52,6 +52,18 @@ class StageService
         $this->repo->save($stage);
 
         return $this->toArray($stage);
+    }
+
+    public function delete(int $id): void
+    {
+        $stage = $this->repo->findById($id);
+
+        if (null === $stage || null !== $stage->getDeletedAt()) {
+            throw new EntityNotFoundException("Estágio {$id} não encontrado.");
+        }
+
+        $stage->setDeletedAt(new \DateTimeImmutable());
+        $this->repo->save($stage);
     }
 
     private function toArray(Stage $stage): array

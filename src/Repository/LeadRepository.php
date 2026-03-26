@@ -18,6 +18,14 @@ class LeadRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
+    public function findAllActive(): array
+    {
+        return $this->createQueryBuilder('l')
+            ->where('l.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(Lead $lead): void
     {
         $this->getEntityManager()->persist($lead);

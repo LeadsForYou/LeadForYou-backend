@@ -20,7 +20,7 @@ class LeadService
 
     public function findAll(): array
     {
-        return array_map(fn (Lead $l) => $this->toArray($l), $this->leadRepo->findAll());
+        return array_map(fn (Lead $l) => $this->toArray($l), $this->leadRepo->findAllActive());
     }
 
     public function create(array $data): array
@@ -105,6 +105,18 @@ class LeadService
         $this->leadRepo->save($lead);
 
         return $this->toArray($lead);
+    }
+
+    public function delete(int $id): void
+    {
+        $lead = $this->leadRepo->findById($id);
+
+        if (null === $lead || null !== $lead->getDeletedAt()) {
+            throw new EntityNotFoundException("Lead {$id} não encontrado.");
+        }
+
+        $lead->setDeletedAt(new \DateTimeImmutable());
+        $this->leadRepo->save($lead);
     }
 
     private function toArray(Lead $lead): array
