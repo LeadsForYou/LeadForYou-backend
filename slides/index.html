@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadsForYou - Backend</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+    <style>
+        :root {
+            --r-heading-color: #58a6ff;
+            --r-link-color: #58a6ff;
+        }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { width: 100%; font-size: 0.38em; }
+        .reveal pre code { max-height: 420px; overflow: auto; }
+        .reveal h2 { font-size: 1.4em; margin-bottom: 10px; }
+        .reveal table { font-size: 0.65em; margin: 0 auto; }
+        .reveal table th { background: #1a3a5c; color: #58a6ff; }
+        .reveal table td, .reveal table th { padding: 8px 14px; border: 1px solid #30363d; }
+        .reveal table tr:nth-child(even) { background: #161b22; }
+        .reveal ul { font-size: 0.85em; }
+        .reveal .small { font-size: 0.6em; color: #8b949e; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 16px; font-size: 0.55em; margin: 4px; }
+        .badge-blue { background: #1f6feb33; color: #58a6ff; border: 1px solid #1f6feb; }
+        .badge-green { background: #23863633; color: #3fb950; border: 1px solid #238636; }
+        .badge-purple { background: #8957e533; color: #bc8cff; border: 1px solid #8957e5; }
+        .badge-orange { background: #d2992233; color: #d29922; border: 1px solid #d29922; }
+        .cols { display: flex; gap: 30px; align-items: flex-start; }
+        .cols > * { flex: 1; }
+        .arch-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 10px; margin: 4px 0; text-align: center; font-size: 0.6em; }
+        .arch-arrow { color: #58a6ff; font-size: 1em; text-align: center; line-height: 1; }
+        .highlight-box { background: #1a3a5c; border-left: 4px solid #58a6ff; padding: 12px 18px; border-radius: 4px; margin: 10px 0; font-size: 0.75em; }
+        .schema-table { font-size: 0.55em !important; }
+        .schema-table th { font-size: 0.9em; }
+        .test-pass { color: #3fb950; }
+        .test-label { color: #8b949e; font-size: 0.75em; }
+        .fragment.current-visible.visible:not(.current-fragment) { display: none; }
+    </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+    <!-- SLIDE 1: Capa -->
+    <section>
+        <h1>LeadsForYou</h1>
+        <h3 style="color: #8b949e;">Backend API</h3>
+        <p style="margin-top: 40px;">
+            <span class="badge badge-blue">PHP 8.4</span>
+            <span class="badge badge-purple">Symfony 7.2</span>
+            <span class="badge badge-green">PostgreSQL 16</span>
+            <span class="badge badge-orange">Docker</span>
+        </p>
+        <p class="small" style="margin-top: 30px;">Sistema de gerenciamento de leads com API RESTful</p>
+    </section>
+
+    <!-- SLIDE 2: Equipe -->
+    <section>
+        <h2>Equipe</h2>
+        <div class="cols" style="justify-content: center; margin-top: 30px;">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5em;">&#128104;&#8205;&#128187;</div>
+                <h3 style="font-size: 0.9em;">Vinicio</h3>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.5em;">&#128104;&#127999;&#8205;&#128187;</div>
+                <h3 style="font-size: 0.9em;">Leonidas</h3>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.5em;">&#128104;&#8205;&#128187;</div>
+                <h3 style="font-size: 0.9em;">Guilherme</h3>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.5em;">&#128104;&#8205;&#128187;</div>
+                <h3 style="font-size: 0.9em;">Rafael</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: Stack Tecnologica -->
+    <section>
+        <section>
+            <h2>Stack Tecnologica</h2>
+            <div class="cols">
+                <div>
+                    <h4 style="color: #3fb950;">Runtime</h4>
+                    <ul>
+                        <li>PHP 8.4</li>
+                        <li>Symfony 7.2</li>
+                        <li>Doctrine ORM 3.6</li>
+                        <li>PostgreSQL 16</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #d29922;">Infra</h4>
+                    <ul>
+                        <li>Docker Compose</li>
+                        <li>PHP-FPM + Nginx</li>
+                        <li>JWT Authentication</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #bc8cff;">Testes</h4>
+                    <ul>
+                        <li>PHPUnit 13</li>
+                        <li>Symfony BrowserKit</li>
+                        <li>Codecov</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Docker Compose</h2>
+            <p class="small">3 containers: PHP-FPM, Nginx, PostgreSQL</p>
+            <pre><code class="language-yaml"># docker-compose.yml (simplificado)
+services:
+  php:
+    build: ./docker/php    # PHP 8.4 + pdo_pgsql
+    volumes: [".:/var/www/html"]
+
+  nginx:
+    build: ./docker/nginx  # Nginx Alpine
+    ports: ["8080:80"]
+    depends_on: [php]
+
+  database:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: leadsforyou
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret</code></pre>
+        </section>
+    </section>
+
+    <!-- SLIDE 4: Arquitetura -->
+    <section>
+        <section>
+            <h2>Arquitetura em Camadas</h2>
+            <div style="max-width: 480px; margin: 0 auto;">
+                <div class="arch-box" style="border-color: #58a6ff;">HTTP Request</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box" style="border-color: #3fb950;">Controller &mdash; roteamento e tratamento de erros</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box" style="border-color: #d29922;">Service &mdash; validacao e logica de negocio</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box" style="border-color: #bc8cff;">Repository &mdash; acesso a dados (Doctrine)</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box" style="border-color: #f85149;">PostgreSQL</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Estrutura do Projeto</h2>
+            <pre><code class="language-text">src/
+├── Controller/          # LeadController, UserController, StageController
+│   └── Cada controller recebe um Service via injecao de dependencia
+├── Service/             # LeadService, UserService, StageService
+│   └── Validacao (Validator), logica de negocio, mapeamento de dados
+├── Repository/          # LeadRepository, UserRepository, StageRepository
+│   └── findById(), findAllActive(), save()
+├── Entity/              # Lead, User, Stage (Doctrine ORM Attributes)
+├── Exception/           # EntityNotFoundException, ValidationException
+├── Http/                # ApiResponse (respostas padronizadas)
+└── Validator/           # Validator com interface fluente</code></pre>
+        </section>
+    </section>
+
+    <!-- SLIDE 5: Endpoints -->
+    <section>
+        <section>
+            <h2>API Endpoints</h2>
+            <p class="small">3 recursos RESTful com CRUD completo</p>
+            <table>
+                <thead>
+                    <tr><th>Metodo</th><th>Rota</th><th>Descricao</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="badge badge-green">GET</span></td><td>/lead</td><td>Listar leads ativos</td><td>200 / 404</td></tr>
+                    <tr><td><span class="badge badge-blue">POST</span></td><td>/lead</td><td>Criar lead</td><td>201 / 422</td></tr>
+                    <tr><td><span class="badge badge-orange">PATCH</span></td><td>/lead/{id}</td><td>Atualizar lead</td><td>200 / 404 / 422</td></tr>
+                    <tr><td><span class="badge badge-purple" style="background:#f8514933;color:#f85149;border-color:#f85149;">DELETE</span></td><td>/lead/{id}</td><td>Soft delete</td><td>204 / 404</td></tr>
+                </tbody>
+            </table>
+            <p class="small" style="margin-top: 15px;">Mesma estrutura para <code>/user</code> e <code>/stage</code></p>
+        </section>
+
+        <section>
+            <h2>Respostas Padronizadas</h2>
+            <p class="small">Classe ApiResponse &mdash; respostas JSON consistentes</p>
+            <pre><code class="language-php">class ApiResponse
+{
+    public static function success(array $data, int $status = 200): JsonResponse {
+        return new JsonResponse(['data' => $data], $status);
+    }
+
+    public static function created(array $data): JsonResponse {
+        return new JsonResponse(['data' => $data], 201);
+    }
+
+    public static function notFound(string $message): JsonResponse {
+        return new JsonResponse(['message' => $message], 404);
+    }
+
+    public static function deleted(): JsonResponse {
+        return new JsonResponse(null, 204);
+    }
+
+    public static function validationError(array $errors): JsonResponse {
+        return new JsonResponse(
+            ['message' => 'Dados invalidos.', 'errors' => $errors], 422);
+    }
+}</code></pre>
+        </section>
+    </section>
+
+    <!-- SLIDE 6: Controller -->
+    <section>
+        <h2>Controller</h2>
+        <p class="small">Delegacao total ao Service + tratamento de excecoes</p>
+        <pre><code class="language-php">final class LeadController extends AbstractController
+{
+    public function __construct(private readonly LeadService $leadService) {}
+
+    public function create(Request $request): JsonResponse {
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
+        try {
+            return ApiResponse::created($this->leadService->create($data));
+        } catch (ValidationException $e) {
+            return ApiResponse::validationError($e->getErrors());
+        }
+    }
+
+    public function update(int $id, Request $request): JsonResponse {
+        $data = '' !== $request->getContent() ? $request->toArray() : [];
+        try {
+            return ApiResponse::success($this->leadService->update($id, $data));
+        } catch (EntityNotFoundException $e) {
+            return ApiResponse::notFound($e->getMessage());
+        } catch (ValidationException $e) {
+            return ApiResponse::validationError($e->getErrors());
+        }
+    }
+
+    public function delete(int $id): JsonResponse {
+        try {
+            $this->leadService->delete($id);
+            return ApiResponse::deleted();
+        } catch (EntityNotFoundException $e) {
+            return ApiResponse::notFound($e->getMessage());
+        }
+    }
+}</code></pre>
+    </section>
+
+    <!-- SLIDE 7: Service -->
+    <section>
+        <section>
+            <h2>Service &mdash; Create</h2>
+            <p class="small">Validacao completa + persistencia</p>
+            <pre><code class="language-php">public function create(array $data): array
+{
+    $user  = isset($data['userId']) && is_int($data['userId'])
+        ? $this->userRepo->findById($data['userId']) : null;
+    $stage = isset($data['stageId']) && is_int($data['stageId'])
+        ? $this->stageRepo->findById($data['stageId']) : null;
+
+    (new Validator($data))
+        ->requiredInt('userId', 'O userId e obrigatorio.')
+        ->requiredInt('stageId', 'O stageId e obrigatorio.')
+        ->required('name', 'O nome e obrigatorio.')
+        ->required('company', 'A empresa e obrigatoria.')
+        ->email('email', 'Um e-mail valido e obrigatorio.')
+        ->required('phone', 'O telefone e obrigatorio.')
+        ->positiveNumber('value', 'O valor deve ser positivo.')
+        ->check('userId', null !== $user, 'Usuario nao encontrado.')
+        ->check('stageId', null !== $stage, 'Estagio nao encontrado.')
+        ->throw();
+
+    $lead = new Lead();
+    $lead->setUser($user);
+    $lead->setStage($stage);
+    $lead->setName($data['name']);
+    // ... demais campos
+    $this->leadRepo->save($lead);
+
+    return $this->toArray($lead);
+}</code></pre>
+        </section>
+
+        <section>
+            <h2>Service &mdash; Soft Delete</h2>
+            <pre><code class="language-php">public function delete(int $id): void
+{
+    $lead = $this->leadRepo->findById($id);
+
+    if (null === $lead || null !== $lead->getDeletedAt()) {
+        throw new EntityNotFoundException(
+            "Lead {$id} nao encontrado."
+        );
+    }
+
+    $lead->setDeletedAt(new \DateTimeImmutable());
+    $this->leadRepo->save($lead);
+}</code></pre>
+            <div class="highlight-box">
+                Soft delete via campo <code>deleted_at</code>: o registro nao e removido fisicamente do banco,
+                apenas marcado com a data de exclusao. O <code>findAllActive()</code> filtra registros deletados.
+            </div>
+        </section>
+    </section>
+
+    <!-- SLIDE 8: Validator -->
+    <section>
+        <h2>Validator &mdash; Interface Fluente</h2>
+        <p class="small">Encadeamento de metodos com acumulo de erros</p>
+        <pre><code class="language-php">class Validator {
+    private array $errors = [];
+    public function __construct(private readonly array $data) {}
+
+    public function required(string $field, string $message): static {
+        if (empty($this->data[$field])) $this->errors[$field] = $message;
+        return $this;
+    }
+    public function email(string $field, string $message): static {
+        if (!$this->hasError($field) && $this->has($field)
+            && !filter_var($this->data[$field], FILTER_VALIDATE_EMAIL))
+            $this->errors[$field] = $message;
+        return $this;
+    }
+    public function check(string $field, bool $cond, string $msg): static {
+        if (!$this->hasError($field) && $this->has($field) && !$cond)
+            $this->errors[$field] = $msg;
+        return $this;
+    }
+    public function throw(): void {
+        if (!empty($this->errors)) throw new ValidationException($this->errors);
+    }
+}
+// Tambem: requiredInt(), positiveInt(), positiveNumber(),
+//         notEmpty(), minLength()</code></pre>
+    </section>
+
+    <!-- SLIDE 9: Database Schema -->
+    <section>
+        <section>
+            <h2>Schema do Banco de Dados</h2>
+            <div class="cols">
+                <div>
+                    <h4 style="color: #58a6ff;">users</h4>
+                    <table class="schema-table">
+                        <tr><th>Coluna</th><th>Tipo</th></tr>
+                        <tr><td>id</td><td>SERIAL PK</td></tr>
+                        <tr><td>name</td><td>VARCHAR(150)</td></tr>
+                        <tr><td>email</td><td>VARCHAR(180) UNIQUE</td></tr>
+                        <tr><td>password</td><td>VARCHAR(255)</td></tr>
+                        <tr><td>role</td><td>VARCHAR(50)</td></tr>
+                        <tr><td>active</td><td>BOOLEAN</td></tr>
+                        <tr><td>created_at</td><td>TIMESTAMP</td></tr>
+                        <tr><td>updated_at</td><td>TIMESTAMP</td></tr>
+                        <tr><td>deleted_at</td><td>TIMESTAMP NULL</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h4 style="color: #3fb950;">stages</h4>
+                    <table class="schema-table">
+                        <tr><th>Coluna</th><th>Tipo</th></tr>
+                        <tr><td>id</td><td>SERIAL PK</td></tr>
+                        <tr><td>name</td><td>VARCHAR(100)</td></tr>
+                        <tr><td>created_at</td><td>TIMESTAMP</td></tr>
+                        <tr><td>updated_at</td><td>TIMESTAMP</td></tr>
+                        <tr><td>deleted_at</td><td>TIMESTAMP NULL</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Schema &mdash; Leads</h2>
+            <table class="schema-table" style="font-size: 0.65em !important;">
+                <tr><th>Coluna</th><th>Tipo</th><th>Constraint</th></tr>
+                <tr><td>id</td><td>SERIAL</td><td>PRIMARY KEY</td></tr>
+                <tr><td>user_id</td><td>INT</td><td>FK &rarr; users.id</td></tr>
+                <tr><td>stage_id</td><td>INT</td><td>FK &rarr; stages.id</td></tr>
+                <tr><td>name</td><td>VARCHAR(150)</td><td>NOT NULL</td></tr>
+                <tr><td>company</td><td>VARCHAR(150)</td><td>NOT NULL</td></tr>
+                <tr><td>email</td><td>VARCHAR(180)</td><td>NOT NULL</td></tr>
+                <tr><td>phone</td><td>VARCHAR(20)</td><td>NOT NULL</td></tr>
+                <tr><td>value</td><td>DECIMAL(10,2)</td><td>NOT NULL</td></tr>
+                <tr><td>created_at</td><td>TIMESTAMP</td><td>NOT NULL</td></tr>
+                <tr><td>updated_at</td><td>TIMESTAMP</td><td>NOT NULL</td></tr>
+                <tr><td>deleted_at</td><td>TIMESTAMP</td><td>NULLABLE</td></tr>
+            </table>
+            <div class="highlight-box" style="margin-top: 20px;">
+                <strong>Relacionamentos:</strong> Lead N:1 User | Lead N:1 Stage
+            </div>
+        </section>
+
+        <section>
+            <h2>Entity &mdash; Doctrine ORM</h2>
+            <pre><code class="language-php">#[ORM\Entity(repositoryClass: LeadRepository::class)]
+#[ORM\Table(name: 'leads')]
+class Lead
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'user_id', nullable: false)]
+    private User $user;
+
+    #[ORM\ManyToOne(targetEntity: Stage::class)]
+    #[ORM\JoinColumn(name: 'stage_id', nullable: false)]
+    private Stage $stage;
+
+    #[ORM\Column(length: 150)]
+    private string $name;
+
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    private string $value;
+
+    #[ORM\Column(name: 'deleted_at', nullable: true)]
+    private ?\DateTimeImmutable $deletedAt = null;
+
+    // ... getters, setters
+}</code></pre>
+        </section>
+    </section>
+
+    <!-- SLIDE 10: Testes Unitarios -->
+    <section>
+        <section>
+            <h2>Testes Unitarios</h2>
+            <p class="small">Service layer isolada com mocks do repository</p>
+            <pre><code class="language-php">class LeadServiceTest extends TestCase {
+    private LeadService $service;
+
+    protected function setUp(): void {
+        $this->leadRepo  = $this->createStub(LeadRepository::class);
+        $this->userRepo  = $this->createStub(UserRepository::class);
+        $this->stageRepo = $this->createStub(StageRepository::class);
+        $this->service   = new LeadService($this->leadRepo, $this->userRepo, $this->stageRepo);
+    }
+
+    public function testCreateWithEmptyBodyReturnsAllValidationErrors(): void {
+        try { $this->service->create([]); }
+        catch (ValidationException $e) {
+            $this->assertArrayHasKey('userId', $e->getErrors());
+            $this->assertArrayHasKey('name', $e->getErrors());
+            $this->assertArrayHasKey('email', $e->getErrors());
+            return;
+        }
+        $this->fail('ValidationException was not thrown');
+    }
+
+    public function testDeleteSetsDeletedAtAndCallsSave(): void {
+        $lead = $this->existingLead();
+        $leadRepo = $this->createMock(LeadRepository::class);
+        $leadRepo->method('findById')->willReturn($lead);
+        $leadRepo->expects($this->once())->method('save');
+        (new LeadService($leadRepo, $this->userRepo, $this->stageRepo))->delete(1);
+        $this->assertNotNull($lead->getDeletedAt());
+    }
+}</code></pre>
+        </section>
+
+        <section>
+            <h2>Testes Unitarios &mdash; Cobertura</h2>
+            <table>
+                <thead>
+                    <tr><th>Suite</th><th>Testes</th><th>Cenarios</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LeadServiceTest</td>
+                        <td>10</td>
+                        <td>findAll, create (validacoes, user/stage not found, sucesso), update, delete (soft delete, ja deletado)</td>
+                    </tr>
+                    <tr>
+                        <td>UserServiceTest</td>
+                        <td>7</td>
+                        <td>findAll, create (validacoes, sucesso), update, delete</td>
+                    </tr>
+                    <tr>
+                        <td>StageServiceTest</td>
+                        <td>6</td>
+                        <td>findAll, create (validacoes, sucesso), update, delete</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 20px;">
+                <span class="badge badge-green" style="font-size: 0.7em;">23 testes unitarios</span>
+            </p>
+        </section>
+    </section>
+
+    <!-- SLIDE 11: Testes de Integracao -->
+    <section>
+        <section>
+            <h2>Testes de Integracao</h2>
+            <p class="small">Stack HTTP completa com banco de dados real</p>
+            <pre><code class="language-php">class LeadIntegrationTest extends IntegrationTestCase {
+
+    public function testPostCreatesLeadAndReturns201(): void {
+        $response = $this->json('POST', '/lead', $this->validLead());
+        $this->assertSame(201, $this->statusCode());
+        $this->assertSame('Joao Silva', $response['data']['name']);
+    }
+
+    public function testDeleteSoftDeletesLeadAndReturns204(): void {
+        $lead = new Lead();
+        $lead->setUser($this->user)->setStage($this->stage)
+             ->setName('Joao')->setCompany('Empresa')
+             ->setEmail('joao@email.com')->setPhone('85999999999')->setValue('1000.00');
+        $this->em->persist($lead);
+        $this->em->flush();
+
+        $this->json('DELETE', "/lead/{$lead->getId()}");
+        $this->assertSame(204, $this->statusCode());
+
+        $this->em->clear();
+        $found = $this->em->find(Lead::class, $lead->getId());
+        $this->assertNotNull($found->getDeletedAt());
+    }
+}</code></pre>
+        </section>
+
+        <section>
+            <h2>Testes de Integracao &mdash; Cobertura</h2>
+            <table>
+                <thead>
+                    <tr><th>Suite</th><th>Testes</th><th>Cenarios</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LeadIntegrationTest</td>
+                        <td>8</td>
+                        <td>GET vazio/com dados, POST valido/invalido, PATCH, DELETE, soft delete, exclusao da listagem</td>
+                    </tr>
+                    <tr>
+                        <td>UserIntegrationTest</td>
+                        <td>7</td>
+                        <td>GET, POST, PATCH, DELETE, validacoes, soft delete</td>
+                    </tr>
+                    <tr>
+                        <td>StageIntegrationTest</td>
+                        <td>6</td>
+                        <td>GET, POST, PATCH, DELETE, validacoes, soft delete</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 20px;">
+                <span class="badge badge-green" style="font-size: 0.7em;">21 testes de integracao</span>
+            </p>
+        </section>
+    </section>
+
+    <!-- SLIDE 12: Resumo de Testes -->
+    <section>
+        <section>
+            <h2>Cobertura de Testes</h2>
+            <div class="cols" style="margin-top: 20px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3em; color: #3fb950; font-weight: bold;">50</div>
+                    <p>Testes</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3em; color: #58a6ff; font-weight: bold;">116</div>
+                    <p>Assertions</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3em; color: #d29922; font-weight: bold;">90.09%</div>
+                    <p>Linhas cobertas</p>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 20px; text-align: center;">
+                <strong>291 / 323 linhas</strong> &bull; <strong>93 / 111 metodos (83.78%)</strong>
+            </div>
+        </section>
+
+        <section>
+            <h2>Cobertura por Camada</h2>
+            <table>
+                <thead>
+                    <tr><th>Classe</th><th>Metodos</th><th>Linhas</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>LeadController</td><td>80.00% (4/5)</td><td>78.95% (15/19)</td></tr>
+                    <tr><td>UserController</td><td>80.00% (4/5)</td><td>78.95% (15/19)</td></tr>
+                    <tr><td>StageController</td><td>80.00% (4/5)</td><td>78.95% (15/19)</td></tr>
+                    <tr><td>LeadService</td><td>83.33% (5/6)</td><td>93.33% (70/75)</td></tr>
+                    <tr><td>UserService</td><td>83.33% (5/6)</td><td>95.92% (47/49)</td></tr>
+                    <tr><td>StageService</td><td>100% (6/6)</td><td>100% (29/29)</td></tr>
+                    <tr><td>Repositories (3x)</td><td>100% (12/12)</td><td>100% (24/24)</td></tr>
+                    <tr><td>ApiResponse</td><td>100% (5/5)</td><td>100% (8/8)</td></tr>
+                    <tr><td>Validator</td><td>58.33% (7/12)</td><td>82.76% (24/29)</td></tr>
+                    <tr><td>Entities (3x)</td><td>83.0% (39/47)</td><td>84.0% (42/50)</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+
+    <!-- SLIDE 13: Fluxo de um Request -->
+    <section>
+        <h2>Fluxo de um Request</h2>
+        <p class="small">POST /lead &mdash; Criacao de um novo lead</p>
+        <div style="font-size: 0.65em; text-align: left; max-width: 750px; margin: 0 auto;">
+            <div class="arch-box" style="text-align: left;">
+                <strong>1. Rota</strong> &mdash; <code>config/routes/lead.yaml</code> mapeia POST /lead &rarr; LeadController::create
+            </div>
+            <div class="arch-arrow">&darr;</div>
+            <div class="arch-box" style="text-align: left;">
+                <strong>2. Controller</strong> &mdash; Extrai JSON do body, delega ao <code>LeadService::create()</code>
+            </div>
+            <div class="arch-arrow">&darr;</div>
+            <div class="arch-box" style="text-align: left;">
+                <strong>3. Service</strong> &mdash; Busca User e Stage no banco, valida com <code>Validator</code>, cria entidade <code>Lead</code>
+            </div>
+            <div class="arch-arrow">&darr;</div>
+            <div class="arch-box" style="text-align: left;">
+                <strong>4. Repository</strong> &mdash; <code>save()</code> executa <code>persist()</code> + <code>flush()</code> no Doctrine
+            </div>
+            <div class="arch-arrow">&darr;</div>
+            <div class="arch-box" style="text-align: left;">
+                <strong>5. Response</strong> &mdash; <code>ApiResponse::created()</code> retorna JSON com status 201
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 14: Encerramento -->
+    <section>
+        <h2>Obrigado!</h2>
+        <div style="margin-top: 30px;">
+            <p>
+                <span class="badge badge-blue">12 Endpoints RESTful</span>
+                <span class="badge badge-green">50 Testes &bull; 90% cobertura</span>
+            </p>
+            <p>
+                <span class="badge badge-purple">Soft Delete</span>
+                <span class="badge badge-orange">Validacao completa</span>
+            </p>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <strong>Proximos passos:</strong><br>
+            Autenticacao JWT &bull; Paginacao &bull; Filtros de busca &bull; Swagger/OpenAPI
+        </div>
+        <p class="small" style="margin-top: 40px;">
+            LeadsForYou Backend &mdash; Symfony 7.2 + PHP 8.4 + PostgreSQL 16
+        </p>
+    </section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: true,
+        plugins: [RevealHighlight],
+        transition: 'slide',
+        backgroundTransition: 'fade',
+        width: 1280,
+        height: 720,
+        margin: 0.04,
+        minScale: 0.2,
+        maxScale: 1.5,
+    });
+</script>
+</body>
+</html>

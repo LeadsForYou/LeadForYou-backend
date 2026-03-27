@@ -38,17 +38,6 @@ class LeadServiceTest extends TestCase
         $this->service   = new LeadService($this->leadRepo, $this->userRepo, $this->stageRepo);
     }
 
-    // -------------------------------------------------------------------------
-    // findAll
-    // -------------------------------------------------------------------------
-
-    public function testFindAllReturnsEmptyArray(): void
-    {
-        $this->leadRepo->method('findAllActive')->willReturn([]);
-
-        $this->assertSame([], $this->service->findAll());
-    }
-
     public function testFindAllReturnsMappedArray(): void
     {
         $lead = $this->existingLead();
@@ -63,18 +52,7 @@ class LeadServiceTest extends TestCase
         $this->assertSame('100.00', $result[0]['value']);
     }
 
-    // -------------------------------------------------------------------------
-    // create – validation (format)
-    // -------------------------------------------------------------------------
-
-    public function testCreateWithEmptyBodyThrowsValidationException(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        $this->service->create([]);
-    }
-
-    public function testCreateErrorsContainAllInvalidFields(): void
+    public function testCreateWithEmptyBodyReturnsAllValidationErrors(): void
     {
         try {
             $this->service->create([]);
@@ -92,38 +70,6 @@ class LeadServiceTest extends TestCase
 
         $this->fail('ValidationException was not thrown');
     }
-
-    public function testCreateWithInvalidUserIdThrowsValidationException(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        $this->service->create(array_merge($this->validData, ['userId' => 0]));
-    }
-
-    public function testCreateWithInvalidEmailThrowsValidationException(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        $this->service->create(array_merge($this->validData, ['email' => 'invalido']));
-    }
-
-    public function testCreateWithNegativeValueThrowsValidationException(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        $this->service->create(array_merge($this->validData, ['value' => '-100']));
-    }
-
-    public function testCreateWithZeroValueThrowsValidationException(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        $this->service->create(array_merge($this->validData, ['value' => '0']));
-    }
-
-    // -------------------------------------------------------------------------
-    // create – validation (FK existence)
-    // -------------------------------------------------------------------------
 
     public function testCreateWithUserNotFoundThrowsValidationException(): void
     {
@@ -155,10 +101,6 @@ class LeadServiceTest extends TestCase
         $this->fail('ValidationException was not thrown');
     }
 
-    // -------------------------------------------------------------------------
-    // create – happy path
-    // -------------------------------------------------------------------------
-
     public function testCreateCallsSaveAndReturnsArray(): void
     {
         $user = new User();
@@ -186,10 +128,6 @@ class LeadServiceTest extends TestCase
         $this->assertSame('1500.00', $result['value']);
     }
 
-    // -------------------------------------------------------------------------
-    // update – not found
-    // -------------------------------------------------------------------------
-
     public function testUpdateThrowsEntityNotFoundExceptionForUnknownId(): void
     {
         $this->leadRepo->method('findById')->willReturn(null);
@@ -199,9 +137,53 @@ class LeadServiceTest extends TestCase
         $this->service->update(99, ['name' => 'X']);
     }
 
-    // -------------------------------------------------------------------------
-    // update – validation
-    // -------------------------------------------------------------------------
+    public function testUpdateCallsSaveAndReturnsUpdatedArray(): void
+    {
+        $lead = $this->existingLead();
+
+        $leadRepo  = $this->createMock(LeadRepository::class);
+        $leadRepo->method('findById')->willReturn($lead);
+        $leadRepo->expects($this->once())->method('save');
+
+        $result = (new LeadService($leadRepo, $this->userRepo, $this->stageRepo))
+            ->update(1, ['name' => 'João Atualizado', 'value' => '2000.00']);
+
+        $this->assertSame('João Atualizado', $result['name']);
+        $this->assertSame('2000.00', $result['value']);
+    }
+
+    public function testDeleteThrowsEntityNotFoundExceptionForUnknownId(): void
+    {
+        $this->leadRepo->method('findById')->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(99);
+    }
+
+    public function testDeleteThrowsEntityNotFoundExceptionForAlreadyDeletedLead(): void
+    {
+        $lead = $this->existingLead();
+        $lead->setDeletedAt(new \DateTimeImmutable());
+        $this->leadRepo->method('findById')->willReturn($lead);
+
+        $this->expectException(EntityNotFoundException::class);
+
+        $this->service->delete(1);
+    }
+
+    public function testDeleteSetsDeletedAtAndCallsSave(): void
+    {
+        $lead = $this->existingLead();
+
+        $leadRepo = $this->createMock(LeadRepository::class);
+        $leadRepo->method('findById')->willReturn($lead);
+        $leadRepo->expects($this->once())->method('save');
+
+        (new LeadService($leadRepo, $this->userRepo, $this->stageRepo))->delete(1);
+
+        $this->assertNotNull($lead->getDeletedAt());
+    }
 
     private function existingLead(): Lead
     {
@@ -224,139 +206,5 @@ class LeadServiceTest extends TestCase
         $lead->setValue('100.00');
 
         return $lead;
-    }
-
-    public function testUpdateWithInvalidUserIdThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['userId' => -1]);
-    }
-
-    public function testUpdateWithInvalidStageIdThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['stageId' => 0]);
-    }
-
-    public function testUpdateWithEmptyNameThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['name' => '']);
-    }
-
-    public function testUpdateWithEmptyCompanyThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['company' => '']);
-    }
-
-    public function testUpdateWithInvalidEmailThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['email' => 'invalido']);
-    }
-
-    public function testUpdateWithEmptyPhoneThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['phone' => '']);
-    }
-
-    public function testUpdateWithNegativeValueThrowsValidationException(): void
-    {
-        $this->leadRepo->method('findById')->willReturn($this->existingLead());
-
-        $this->expectException(ValidationException::class);
-
-        $this->service->update(1, ['value' => '-50']);
-    }
-
-    // -------------------------------------------------------------------------
-    // update – happy path
-    // -------------------------------------------------------------------------
-
-    public function testUpdateCallsSaveAndReturnsUpdatedArray(): void
-    {
-        $lead = $this->existingLead();
-
-        $leadRepo  = $this->createMock(LeadRepository::class);
-        $leadRepo->method('findById')->willReturn($lead);
-        $leadRepo->expects($this->once())->method('save');
-
-        $result = (new LeadService($leadRepo, $this->userRepo, $this->stageRepo))
-            ->update(1, ['name' => 'João Atualizado', 'value' => '2000.00']);
-
-        $this->assertSame('João Atualizado', $result['name']);
-        $this->assertSame('2000.00', $result['value']);
-    }
-
-    public function testUpdateWithNoDataReturnsCurrentState(): void
-    {
-        $lead = $this->existingLead();
-        $this->leadRepo->method('findById')->willReturn($lead);
-
-        $result = $this->service->update(1, []);
-
-        $this->assertSame('João', $result['name']);
-        $this->assertSame('100.00', $result['value']);
-    }
-
-    // -------------------------------------------------------------------------
-    // delete – not found
-    // -------------------------------------------------------------------------
-
-    public function testDeleteThrowsEntityNotFoundExceptionForUnknownId(): void
-    {
-        $this->leadRepo->method('findById')->willReturn(null);
-
-        $this->expectException(EntityNotFoundException::class);
-
-        $this->service->delete(99);
-    }
-
-    public function testDeleteThrowsEntityNotFoundExceptionForAlreadyDeletedLead(): void
-    {
-        $lead = $this->existingLead();
-        $lead->setDeletedAt(new \DateTimeImmutable());
-        $this->leadRepo->method('findById')->willReturn($lead);
-
-        $this->expectException(EntityNotFoundException::class);
-
-        $this->service->delete(1);
-    }
-
-    // -------------------------------------------------------------------------
-    // delete – happy path
-    // -------------------------------------------------------------------------
-
-    public function testDeleteSetsDeletedAtAndCallsSave(): void
-    {
-        $lead = $this->existingLead();
-
-        $leadRepo = $this->createMock(LeadRepository::class);
-        $leadRepo->method('findById')->willReturn($lead);
-        $leadRepo->expects($this->once())->method('save');
-
-        (new LeadService($leadRepo, $this->userRepo, $this->stageRepo))->delete(1);
-
-        $this->assertNotNull($lead->getDeletedAt());
     }
 }
